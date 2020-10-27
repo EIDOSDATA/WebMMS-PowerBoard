@@ -2223,7 +2223,7 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
 .iplt           0x00000000080069ac        0x0
  .iplt          0x00000000080069ac        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
 
-.rodata         0x00000000080069ac      0xeec
+.rodata         0x00000000080069ac      0xee0
                 0x00000000080069ac                . = ALIGN (0x4)
  *(.rodata)
  .rodata        0x00000000080069ac       0x40 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m\libgcc.a(mulsf3.o)
@@ -2244,60 +2244,59 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .rodata.USBD_FS_InterfaceStrDescriptor.str1.1
                 0x0000000008007830        0xe USB_DEVICE/App/usbd_desc.o
  .rodata.USBD_FS_ManufacturerStrDescriptor.str1.1
-                0x000000000800783e       0x13 USB_DEVICE/App/usbd_desc.o
+                0x000000000800783e        0xa USB_DEVICE/App/usbd_desc.o
  .rodata.USBD_FS_ProductStrDescriptor.str1.1
-                0x0000000008007851        0xd USB_DEVICE/App/usbd_desc.o
+                0x0000000008007848        0xd USB_DEVICE/App/usbd_desc.o
  .rodata.CSWTCH.3
-                0x000000000800785e        0x4 USB_DEVICE/Target/usbd_conf.o
+                0x0000000008007855        0x4 USB_DEVICE/Target/usbd_conf.o
  .rodata._svfprintf_r.str1.1
-                0x0000000008007862       0x11 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008007859       0x11 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x0000000008007873       0x22 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000008007898                . = ALIGN (0x4)
- *fill*         0x0000000008007895        0x3 
+                0x000000000800786a       0x22 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800788c                . = ALIGN (0x4)
 
-.rel.dyn        0x0000000008007898        0x0
- .rel.iplt      0x0000000008007898        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
+.rel.dyn        0x000000000800788c        0x0
+ .rel.iplt      0x000000000800788c        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
 
-.ARM.extab      0x0000000008007898        0x0
-                0x0000000008007898                . = ALIGN (0x4)
+.ARM.extab      0x000000000800788c        0x0
+                0x000000000800788c                . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008007898                . = ALIGN (0x4)
+                0x000000000800788c                . = ALIGN (0x4)
 
-.ARM            0x0000000008007898        0x0
-                0x0000000008007898                . = ALIGN (0x4)
-                0x0000000008007898                __exidx_start = .
+.ARM            0x000000000800788c        0x0
+                0x000000000800788c                . = ALIGN (0x4)
+                0x000000000800788c                __exidx_start = .
  *(.ARM.exidx*)
-                0x0000000008007898                __exidx_end = .
-                0x0000000008007898                . = ALIGN (0x4)
+                0x000000000800788c                __exidx_end = .
+                0x000000000800788c                . = ALIGN (0x4)
 
-.preinit_array  0x0000000008007898        0x0
-                0x0000000008007898                . = ALIGN (0x4)
-                0x0000000008007898                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x000000000800788c        0x0
+                0x000000000800788c                . = ALIGN (0x4)
+                0x000000000800788c                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000008007898                PROVIDE (__preinit_array_end = .)
-                0x0000000008007898                . = ALIGN (0x4)
+                0x000000000800788c                PROVIDE (__preinit_array_end = .)
+                0x000000000800788c                . = ALIGN (0x4)
 
-.init_array     0x0000000008007898        0x4
-                0x0000000008007898                . = ALIGN (0x4)
-                0x0000000008007898                PROVIDE (__init_array_start = .)
+.init_array     0x000000000800788c        0x4
+                0x000000000800788c                . = ALIGN (0x4)
+                0x000000000800788c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008007898        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
-                0x000000000800789c                PROVIDE (__init_array_end = .)
-                0x000000000800789c                . = ALIGN (0x4)
+ .init_array    0x000000000800788c        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
+                0x0000000008007890                PROVIDE (__init_array_end = .)
+                0x0000000008007890                . = ALIGN (0x4)
 
-.fini_array     0x000000000800789c        0x4
-                0x000000000800789c                . = ALIGN (0x4)
+.fini_array     0x0000000008007890        0x4
+                0x0000000008007890                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x000000000800789c        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
+ .fini_array    0x0000000008007890        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x00000000080078a0                . = ALIGN (0x4)
-                0x00000000080078a0                _sidata = LOADADDR (.data)
+                0x0000000008007894                . = ALIGN (0x4)
+                0x0000000008007894                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x34c load address 0x00000000080078a0
+.data           0x0000000020000000      0x34c load address 0x0000000008007894
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -2362,11 +2361,11 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x000000002000034c                . = ALIGN (0x4)
                 0x000000002000034c                _edata = .
 
-.igot.plt       0x000000002000034c        0x0 load address 0x0000000008007bec
+.igot.plt       0x000000002000034c        0x0 load address 0x0000000008007be0
  .igot.plt      0x000000002000034c        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
                 0x000000002000034c                . = ALIGN (0x4)
 
-.bss            0x000000002000034c     0x1080 load address 0x0000000008007bec
+.bss            0x000000002000034c     0x1080 load address 0x0000000008007be0
                 0x000000002000034c                _sbss = .
                 0x000000002000034c                __bss_start__ = _sbss
  *(.bss)
@@ -2425,7 +2424,7 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x00000000200013cc                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200013cc      0x304 load address 0x0000000008007bec
+                0x00000000200013cc      0x304 load address 0x0000000008007be0
                 0x00000000200013d0                . = ALIGN (0x8)
  *fill*         0x00000000200013cc        0x4 
                 [!provide]                        PROVIDE (end = .)
@@ -2716,38 +2715,38 @@ OUTPUT(Web_MMS_Power.elf elf32-littlearm)
  .debug_aranges
                 0x0000000000001060      0x108 USB_DEVICE/Target/usbd_conf.o
 
-.debug_line     0x0000000000000000     0xc52c
+.debug_line     0x0000000000000000     0xc531
  .debug_line    0x0000000000000000      0x250 Core/Src/fonts.o
- .debug_line    0x0000000000000250      0x984 Core/Src/main.o
- .debug_line    0x0000000000000bd4      0x5d7 Core/Src/ssd1306.o
- .debug_line    0x00000000000011ab      0x438 Core/Src/stm32f0xx_hal_msp.o
- .debug_line    0x00000000000015e3      0x409 Core/Src/stm32f0xx_it.o
- .debug_line    0x00000000000019ec      0x2d5 Core/Src/sysmem.o
- .debug_line    0x0000000000001cc1      0x29a Core/Src/system_stm32f0xx.o
- .debug_line    0x0000000000001f5b       0x9b Core/Startup/startup_stm32f042c6tx.o
- .debug_line    0x0000000000001ff6      0x494 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
- .debug_line    0x000000000000248a      0x86f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
- .debug_line    0x0000000000002cf9      0x429 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
- .debug_line    0x0000000000003122      0x58a Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o
- .debug_line    0x00000000000036ac      0x414 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
- .debug_line    0x0000000000003ac0     0x1af3 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o
- .debug_line    0x00000000000055b3      0x424 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o
- .debug_line    0x00000000000059d7      0x6e8 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd.o
- .debug_line    0x00000000000060bf      0x3a2 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd_ex.o
- .debug_line    0x0000000000006461     0x1439 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o
- .debug_line    0x000000000000789a      0x7f9 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o
- .debug_line    0x0000000000008093      0x33b Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_exti.o
- .debug_line    0x00000000000083ce      0x37d Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_gpio.o
- .debug_line    0x000000000000874b      0x6b3 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_usb.o
- .debug_line    0x0000000000008dfe      0x5a0 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.o
- .debug_line    0x000000000000939e      0x752 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
- .debug_line    0x0000000000009af0      0x6c9 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.o
- .debug_line    0x000000000000a1b9      0x660 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
- .debug_line    0x000000000000a819      0x503 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.o
- .debug_line    0x000000000000ad1c      0x521 USB_DEVICE/App/usb_device.o
- .debug_line    0x000000000000b23d      0x5f9 USB_DEVICE/App/usbd_cdc_if.o
- .debug_line    0x000000000000b836      0x51e USB_DEVICE/App/usbd_desc.o
- .debug_line    0x000000000000bd54      0x7d8 USB_DEVICE/Target/usbd_conf.o
+ .debug_line    0x0000000000000250      0x989 Core/Src/main.o
+ .debug_line    0x0000000000000bd9      0x5d7 Core/Src/ssd1306.o
+ .debug_line    0x00000000000011b0      0x438 Core/Src/stm32f0xx_hal_msp.o
+ .debug_line    0x00000000000015e8      0x409 Core/Src/stm32f0xx_it.o
+ .debug_line    0x00000000000019f1      0x2d5 Core/Src/sysmem.o
+ .debug_line    0x0000000000001cc6      0x29a Core/Src/system_stm32f0xx.o
+ .debug_line    0x0000000000001f60       0x9b Core/Startup/startup_stm32f042c6tx.o
+ .debug_line    0x0000000000001ffb      0x494 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
+ .debug_line    0x000000000000248f      0x86f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
+ .debug_line    0x0000000000002cfe      0x429 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
+ .debug_line    0x0000000000003127      0x58a Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o
+ .debug_line    0x00000000000036b1      0x414 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
+ .debug_line    0x0000000000003ac5     0x1af3 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o
+ .debug_line    0x00000000000055b8      0x424 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o
+ .debug_line    0x00000000000059dc      0x6e8 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd.o
+ .debug_line    0x00000000000060c4      0x3a2 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd_ex.o
+ .debug_line    0x0000000000006466     0x1439 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o
+ .debug_line    0x000000000000789f      0x7f9 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o
+ .debug_line    0x0000000000008098      0x33b Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_exti.o
+ .debug_line    0x00000000000083d3      0x37d Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_gpio.o
+ .debug_line    0x0000000000008750      0x6b3 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_usb.o
+ .debug_line    0x0000000000008e03      0x5a0 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.o
+ .debug_line    0x00000000000093a3      0x752 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+ .debug_line    0x0000000000009af5      0x6c9 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.o
+ .debug_line    0x000000000000a1be      0x660 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
+ .debug_line    0x000000000000a81e      0x503 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.o
+ .debug_line    0x000000000000ad21      0x521 USB_DEVICE/App/usb_device.o
+ .debug_line    0x000000000000b242      0x5f9 USB_DEVICE/App/usbd_cdc_if.o
+ .debug_line    0x000000000000b83b      0x51e USB_DEVICE/App/usbd_desc.o
+ .debug_line    0x000000000000bd59      0x7d8 USB_DEVICE/Target/usbd_conf.o
 
 .debug_str      0x0000000000000000     0x5f0b
  .debug_str     0x0000000000000000      0x27d Core/Src/fonts.o

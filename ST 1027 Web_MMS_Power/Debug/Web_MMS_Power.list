@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         000068ec  080000c0  080000c0  000100c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000eec  080069ac  080069ac  000169ac  2**2
+  2 .rodata       00000ee0  080069ac  080069ac  000169ac  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08007898  08007898  0002034c  2**0
+  3 .ARM.extab    00000000  0800788c  0800788c  0002034c  2**0
                   CONTENTS
-  4 .ARM          00000000  08007898  08007898  0002034c  2**0
+  4 .ARM          00000000  0800788c  0800788c  0002034c  2**0
                   CONTENTS
-  5 .preinit_array 00000000  08007898  08007898  0002034c  2**0
+  5 .preinit_array 00000000  0800788c  0800788c  0002034c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08007898  08007898  00017898  2**2
+  6 .init_array   00000004  0800788c  0800788c  0001788c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  0800789c  0800789c  0001789c  2**2
+  7 .fini_array   00000004  08007890  08007890  00017890  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         0000034c  20000000  080078a0  00020000  2**2
+  8 .data         0000034c  20000000  08007894  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00001080  2000034c  08007bec  0002034c  2**2
+  9 .bss          00001080  2000034c  08007be0  0002034c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000304  200013cc  08007bec  000213cc  2**0
+ 10 ._user_heap_stack 00000304  200013cc  08007be0  000213cc  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  0002034c  2**0
                   CONTENTS, READONLY
@@ -33,13 +33,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_aranges 00001168  00000000  00000000  00047bc8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_line   0000c52c  00000000  00000000  00048d30  2**0
+ 15 .debug_line   0000c531  00000000  00000000  00048d30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_str    00005f0b  00000000  00000000  0005525c  2**0
+ 16 .debug_str    00005f0b  00000000  00000000  00055261  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .comment      0000007b  00000000  00000000  0005b167  2**0
+ 17 .comment      0000007b  00000000  00000000  0005b16c  2**0
                   CONTENTS, READONLY
- 18 .debug_loc    0000fac0  00000000  00000000  0005b1e2  2**0
+ 18 .debug_loc    0000fac0  00000000  00000000  0005b1e7  2**0
                   CONTENTS, READONLY, DEBUGGING
  19 .debug_ranges 00001c78  00000000  00000000  0006aca8  2**3
                   CONTENTS, READONLY, DEBUGGING
@@ -3137,12 +3137,12 @@ __STATIC_INLINE void LL_FLASH_SetLatency(uint32_t Latency)
   MODIFY_REG(FLASH->ACR, FLASH_ACR_LATENCY, Latency);
  8001880:	2301      	movs	r3, #1
  8001882:	4a2a      	ldr	r2, [pc, #168]	; (800192c <SystemClock_Config+0xac>)
-
 /**
- * @brief System Clock Configuration
- * @retval None
- */
-void SystemClock_Config(void) {
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
  8001884:	b510      	push	{r4, lr}
  8001886:	6811      	ldr	r1, [r2, #0]
  8001888:	4399      	bics	r1, r3
@@ -3155,8 +3155,8 @@ __STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
 {
   return (uint32_t)(READ_BIT(FLASH->ACR, FLASH_ACR_LATENCY));
  800188e:	6811      	ldr	r1, [r2, #0]
-	LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
-	while (LL_FLASH_GetLatency() != LL_FLASH_LATENCY_1) {
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
+  while(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_1)
  8001890:	4219      	tst	r1, r3
  8001892:	d0fc      	beq.n	800188e <SystemClock_Config+0xe>
   * @rmtoll CR           HSION         LL_RCC_HSI_Enable
@@ -3177,11 +3177,12 @@ __STATIC_INLINE uint32_t LL_RCC_HSI_IsReady(void)
   return (READ_BIT(RCC->CR, RCC_CR_HSIRDY) == (RCC_CR_HSIRDY));
  800189c:	2302      	movs	r3, #2
  800189e:	6822      	ldr	r2, [r4, #0]
-	}
-	LL_RCC_HSI_Enable();
+  {
+  }
+  LL_RCC_HSI_Enable();
 
-	/* Wait till HSI is ready */
-	while (LL_RCC_HSI_IsReady() != 1) {
+   /* Wait till HSI is ready */
+  while(LL_RCC_HSI_IsReady() != 1)
  80018a0:	421a      	tst	r2, r3
  80018a2:	d0fc      	beq.n	800189e <SystemClock_Config+0x1e>
   * @param  Value between Min_Data = 0x00 and Max_Data = 0x1F
@@ -3215,12 +3216,12 @@ __STATIC_INLINE uint32_t LL_RCC_HSI14_IsReady(void)
   return (READ_BIT(RCC->CR2, RCC_CR2_HSI14RDY) == (RCC_CR2_HSI14RDY));
  80018ba:	2302      	movs	r3, #2
  80018bc:	6b62      	ldr	r2, [r4, #52]	; 0x34
-	}
-	LL_RCC_HSI_SetCalibTrimming(16);
-	LL_RCC_HSI14_Enable();
+  }
+  LL_RCC_HSI_SetCalibTrimming(16);
+  LL_RCC_HSI14_Enable();
 
-	/* Wait till HSI14 is ready */
-	while (LL_RCC_HSI14_IsReady() != 1) {
+   /* Wait till HSI14 is ready */
+  while(LL_RCC_HSI14_IsReady() != 1)
  80018be:	421a      	tst	r2, r3
  80018c0:	d0fc      	beq.n	80018bc <SystemClock_Config+0x3c>
   * @param  Value between Min_Data = 0x00 and Max_Data = 0xFF
@@ -3246,12 +3247,12 @@ __STATIC_INLINE void LL_RCC_HSI14_SetCalibTrimming(uint32_t Value)
  80018da:	2380      	movs	r3, #128	; 0x80
  80018dc:	029b      	lsls	r3, r3, #10
  80018de:	6b62      	ldr	r2, [r4, #52]	; 0x34
-	}
-	LL_RCC_HSI14_SetCalibTrimming(16);
-	LL_RCC_HSI48_Enable();
+  }
+  LL_RCC_HSI14_SetCalibTrimming(16);
+  LL_RCC_HSI48_Enable();
 
-	/* Wait till HSI48 is ready */
-	while (LL_RCC_HSI48_IsReady() != 1) {
+   /* Wait till HSI48 is ready */
+  while(LL_RCC_HSI48_IsReady() != 1)
  80018e0:	421a      	tst	r2, r3
  80018e2:	d0fc      	beq.n	80018de <SystemClock_Config+0x5e>
   *         @arg @ref LL_RCC_SYSCLK_DIV_512
@@ -3285,22 +3286,23 @@ __STATIC_INLINE void LL_RCC_SetAPB1Prescaler(uint32_t Prescaler)
  80018fc:	3209      	adds	r2, #9
  80018fe:	6863      	ldr	r3, [r4, #4]
  8001900:	4013      	ands	r3, r2
-	LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
-	LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-	LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI48);
+  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI48);
 
-	/* Wait till System clock is ready */
-	while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI48) {
+   /* Wait till System clock is ready */
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI48)
  8001902:	2b0c      	cmp	r3, #12
  8001904:	d1fb      	bne.n	80018fe <SystemClock_Config+0x7e>
+  {
 
-	}
-	LL_SetSystemCoreClock(48000000);
+  }
+  LL_SetSystemCoreClock(48000000);
  8001906:	480c      	ldr	r0, [pc, #48]	; (8001938 <SystemClock_Config+0xb8>)
  8001908:	f003 fa98 	bl	8004e3c <LL_SetSystemCoreClock>
 
-	/* Update the time base */
-	if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK) {
+   /* Update the time base */
+  if (HAL_InitTick (TICK_INT_PRIORITY) != HAL_OK)
  800190c:	2000      	movs	r0, #0
  800190e:	f000 fd53 	bl	80023b8 <HAL_InitTick>
   CLEAR_BIT(RCC->CR2, RCC_CR2_HSI14DIS);
@@ -3328,11 +3330,11 @@ __STATIC_INLINE void LL_RCC_SetUSBClockSource(uint32_t USBxSource)
  8001924:	3270      	adds	r2, #112	; 0x70
  8001926:	4393      	bics	r3, r2
  8001928:	6323      	str	r3, [r4, #48]	; 0x30
-		Error_Handler();
-	}
-	LL_RCC_HSI14_EnableADCControl();
-	LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_HSI);
-	LL_RCC_SetUSBClockSource(LL_RCC_USB_CLKSOURCE_HSI48);
+    Error_Handler();
+  }
+  LL_RCC_HSI14_EnableADCControl();
+  LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_HSI);
+  LL_RCC_SetUSBClockSource(LL_RCC_USB_CLKSOURCE_HSI48);
 }
  800192a:	bd10      	pop	{r4, pc}
  800192c:	40022000 	.word	0x40022000
@@ -3341,43 +3343,43 @@ __STATIC_INLINE void LL_RCC_SetUSBClockSource(uint32_t USBxSource)
  8001938:	02dc6c00 	.word	0x02dc6c00
 
 0800193c <main>:
-int main(void) {
+{
  800193c:	b5f0      	push	{r4, r5, r6, r7, lr}
  800193e:	b08f      	sub	sp, #60	; 0x3c
-	HAL_Init();
+  HAL_Init();
  8001940:	f000 fd5e 	bl	8002400 <HAL_Init>
-	SystemClock_Config();
+  SystemClock_Config();
  8001944:	f7ff ff9c 	bl	8001880 <SystemClock_Config>
- * @brief GPIO Initialization Function
- * @param None
- * @retval None
- */
-static void MX_GPIO_Init(void) {
-	LL_EXTI_InitTypeDef EXTI_InitStruct = { 0 };
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
  8001948:	2208      	movs	r2, #8
  800194a:	2100      	movs	r1, #0
  800194c:	a806      	add	r0, sp, #24
  800194e:	f004 fc1a 	bl	8006186 <memset>
-	LL_GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
  8001952:	2218      	movs	r2, #24
  8001954:	2100      	movs	r1, #0
  8001956:	a808      	add	r0, sp, #32
  8001958:	f004 fc15 	bl	8006186 <memset>
 
-	/* GPIO Ports Clock Enable */
-	LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
+  /* GPIO Ports Clock Enable */
+  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
  800195c:	2080      	movs	r0, #128	; 0x80
  800195e:	0300      	lsls	r0, r0, #12
  8001960:	f7ff feba 	bl	80016d8 <LL_AHB1_GRP1_EnableClock>
-	LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOF);
+  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOF);
  8001964:	2080      	movs	r0, #128	; 0x80
  8001966:	03c0      	lsls	r0, r0, #15
  8001968:	f7ff feb6 	bl	80016d8 <LL_AHB1_GRP1_EnableClock>
-	LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
  800196c:	2080      	movs	r0, #128	; 0x80
  800196e:	0280      	lsls	r0, r0, #10
  8001970:	f7ff feb2 	bl	80016d8 <LL_AHB1_GRP1_EnableClock>
-	LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
+  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
  8001974:	2080      	movs	r0, #128	; 0x80
  8001976:	02c0      	lsls	r0, r0, #11
  8001978:	f7ff feae 	bl	80016d8 <LL_AHB1_GRP1_EnableClock>
@@ -3431,461 +3433,461 @@ __STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMas
  80019c4:	011b      	lsls	r3, r3, #4
  80019c6:	61a3      	str	r3, [r4, #24]
  80019c8:	61a5      	str	r5, [r4, #24]
-	LL_GPIO_SetOutputPin(PWR1_GPIO_Port, PWR1_Pin);
+  LL_GPIO_SetOutputPin(PWR1_GPIO_Port, PWR1_Pin);
 
-	/**/
-	GPIO_InitStruct.Pin = FND_Select0_Pin;
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  /**/
+  GPIO_InitStruct.Pin = FND_Select0_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  80019ca:	2500      	movs	r5, #0
  80019cc:	61a2      	str	r2, [r4, #24]
  80019ce:	61a1      	str	r1, [r4, #24]
  80019d0:	61a0      	str	r0, [r4, #24]
-	GPIO_InitStruct.Pin = FND_Select0_Pin;
+  GPIO_InitStruct.Pin = FND_Select0_Pin;
  80019d2:	9208      	str	r2, [sp, #32]
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND_Select0_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND_Select0_GPIO_Port, &GPIO_InitStruct);
  80019d4:	aa08      	add	r2, sp, #32
  80019d6:	0011      	movs	r1, r2
  80019d8:	48e8      	ldr	r0, [pc, #928]	; (8001d7c <main+0x440>)
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  80019da:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  80019dc:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  80019de:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  80019e0:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND_Select0_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select0_GPIO_Port, &GPIO_InitStruct);
  80019e2:	f002 fe2f 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND_Select1_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND_Select1_Pin;
  80019e6:	2180      	movs	r1, #128	; 0x80
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
  80019e8:	aa08      	add	r2, sp, #32
-	GPIO_InitStruct.Pin = FND_Select1_Pin;
+  GPIO_InitStruct.Pin = FND_Select1_Pin;
  80019ea:	01c9      	lsls	r1, r1, #7
  80019ec:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
  80019ee:	48e3      	ldr	r0, [pc, #908]	; (8001d7c <main+0x440>)
  80019f0:	0011      	movs	r1, r2
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  80019f2:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  80019f4:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  80019f6:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  80019f8:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select1_GPIO_Port, &GPIO_InitStruct);
  80019fa:	f002 fe23 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND_Select2_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND_Select2_Pin;
  80019fe:	2080      	movs	r0, #128	; 0x80
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
  8001a00:	aa08      	add	r2, sp, #32
-	GPIO_InitStruct.Pin = FND_Select2_Pin;
+  GPIO_InitStruct.Pin = FND_Select2_Pin;
  8001a02:	0200      	lsls	r0, r0, #8
-	LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
  8001a04:	0011      	movs	r1, r2
-	GPIO_InitStruct.Pin = FND_Select2_Pin;
+  GPIO_InitStruct.Pin = FND_Select2_Pin;
  8001a06:	9008      	str	r0, [sp, #32]
-	LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
  8001a08:	48dc      	ldr	r0, [pc, #880]	; (8001d7c <main+0x440>)
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a0a:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a0c:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001a0e:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001a10:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND_Select2_GPIO_Port, &GPIO_InitStruct);
  8001a12:	f002 fe17 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = S_CAP_CTRL_Pin;
+  /**/
+  GPIO_InitStruct.Pin = S_CAP_CTRL_Pin;
  8001a16:	2304      	movs	r3, #4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(S_CAP_CTRL_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(S_CAP_CTRL_GPIO_Port, &GPIO_InitStruct);
  8001a18:	aa08      	add	r2, sp, #32
  8001a1a:	0011      	movs	r1, r2
  8001a1c:	0030      	movs	r0, r6
-	GPIO_InitStruct.Pin = S_CAP_CTRL_Pin;
+  GPIO_InitStruct.Pin = S_CAP_CTRL_Pin;
  8001a1e:	9308      	str	r3, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a20:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a22:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001a24:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001a26:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(S_CAP_CTRL_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(S_CAP_CTRL_GPIO_Port, &GPIO_InitStruct);
  8001a28:	f002 fe0c 	bl	8004644 <LL_GPIO_Init>
-	GPIO_InitStruct.Pin = FND0_Pin;
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND0_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = FND0_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND0_GPIO_Port, &GPIO_InitStruct);
  8001a2c:	aa08      	add	r2, sp, #32
  8001a2e:	0011      	movs	r1, r2
  8001a30:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = FND0_Pin;
+  GPIO_InitStruct.Pin = FND0_Pin;
  8001a32:	9708      	str	r7, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a34:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a36:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001a38:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001a3a:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND0_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND0_GPIO_Port, &GPIO_InitStruct);
  8001a3c:	f002 fe02 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND1_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND1_Pin;
  8001a40:	2102      	movs	r1, #2
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
  8001a42:	aa08      	add	r2, sp, #32
-	GPIO_InitStruct.Pin = FND1_Pin;
+  GPIO_InitStruct.Pin = FND1_Pin;
  8001a44:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
  8001a46:	0020      	movs	r0, r4
  8001a48:	0011      	movs	r1, r2
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a4a:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a4c:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001a4e:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001a50:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND1_GPIO_Port, &GPIO_InitStruct);
  8001a52:	f002 fdf7 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND2_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND2_Pin;
  8001a56:	2304      	movs	r3, #4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND2_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND2_GPIO_Port, &GPIO_InitStruct);
  8001a58:	aa08      	add	r2, sp, #32
  8001a5a:	0011      	movs	r1, r2
  8001a5c:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = FND2_Pin;
+  GPIO_InitStruct.Pin = FND2_Pin;
  8001a5e:	9308      	str	r3, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a60:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a62:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001a64:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001a66:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND2_GPIO_Port, &GPIO_InitStruct);
  8001a68:	f002 fdec 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR6_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR6_Pin;
  8001a6c:	2080      	movs	r0, #128	; 0x80
  8001a6e:	00c0      	lsls	r0, r0, #3
  8001a70:	9008      	str	r0, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR6_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR6_GPIO_Port, &GPIO_InitStruct);
  8001a72:	a808      	add	r0, sp, #32
  8001a74:	0001      	movs	r1, r0
  8001a76:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a78:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001a7a:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001a7c:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a7e:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR6_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR6_GPIO_Port, &GPIO_InitStruct);
  8001a80:	f002 fde0 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR5_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR5_Pin;
  8001a84:	2080      	movs	r0, #128	; 0x80
  8001a86:	0100      	lsls	r0, r0, #4
  8001a88:	9008      	str	r0, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR5_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR5_GPIO_Port, &GPIO_InitStruct);
  8001a8a:	a808      	add	r0, sp, #32
  8001a8c:	0001      	movs	r1, r0
  8001a8e:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001a90:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001a92:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001a94:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001a96:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR5_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR5_GPIO_Port, &GPIO_InitStruct);
  8001a98:	f002 fdd4 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR4_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR4_Pin;
  8001a9c:	2380      	movs	r3, #128	; 0x80
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
  8001a9e:	a808      	add	r0, sp, #32
-	GPIO_InitStruct.Pin = PWR4_Pin;
+  GPIO_InitStruct.Pin = PWR4_Pin;
  8001aa0:	015b      	lsls	r3, r3, #5
-	LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
  8001aa2:	0001      	movs	r1, r0
  8001aa4:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = PWR4_Pin;
+  GPIO_InitStruct.Pin = PWR4_Pin;
  8001aa6:	9308      	str	r3, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001aa8:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001aaa:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001aac:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001aae:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR4_GPIO_Port, &GPIO_InitStruct);
  8001ab0:	f002 fdc8 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR3_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR3_Pin;
  8001ab4:	2280      	movs	r2, #128	; 0x80
  8001ab6:	0192      	lsls	r2, r2, #6
  8001ab8:	9208      	str	r2, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR3_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR3_GPIO_Port, &GPIO_InitStruct);
  8001aba:	aa08      	add	r2, sp, #32
  8001abc:	0011      	movs	r1, r2
  8001abe:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001ac0:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001ac2:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001ac4:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001ac6:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR3_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR3_GPIO_Port, &GPIO_InitStruct);
  8001ac8:	f002 fdbc 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR2_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR2_Pin;
  8001acc:	2180      	movs	r1, #128	; 0x80
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
  8001ace:	aa08      	add	r2, sp, #32
-	GPIO_InitStruct.Pin = PWR2_Pin;
+  GPIO_InitStruct.Pin = PWR2_Pin;
  8001ad0:	01c9      	lsls	r1, r1, #7
  8001ad2:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
  8001ad4:	0020      	movs	r0, r4
  8001ad6:	0011      	movs	r1, r2
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001ad8:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001ada:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001adc:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001ade:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR2_GPIO_Port, &GPIO_InitStruct);
  8001ae0:	f002 fdb0 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = PWR1_Pin;
+  /**/
+  GPIO_InitStruct.Pin = PWR1_Pin;
  8001ae4:	2080      	movs	r0, #128	; 0x80
  8001ae6:	0200      	lsls	r0, r0, #8
  8001ae8:	9008      	str	r0, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-	LL_GPIO_Init(PWR1_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(PWR1_GPIO_Port, &GPIO_InitStruct);
  8001aea:	a808      	add	r0, sp, #32
  8001aec:	0001      	movs	r1, r0
  8001aee:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001af0:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
  8001af2:	970b      	str	r7, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
  8001af4:	970c      	str	r7, [sp, #48]	; 0x30
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001af6:	950a      	str	r5, [sp, #40]	; 0x28
-	LL_GPIO_Init(PWR1_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(PWR1_GPIO_Port, &GPIO_InitStruct);
  8001af8:	f002 fda4 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND3_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND3_Pin;
  8001afc:	2108      	movs	r1, #8
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
  8001afe:	a808      	add	r0, sp, #32
-	GPIO_InitStruct.Pin = FND3_Pin;
+  GPIO_InitStruct.Pin = FND3_Pin;
  8001b00:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
  8001b02:	0001      	movs	r1, r0
  8001b04:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001b06:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001b08:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001b0a:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001b0c:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND3_GPIO_Port, &GPIO_InitStruct);
  8001b0e:	f002 fd99 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND4_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND4_Pin;
  8001b12:	2110      	movs	r1, #16
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
  8001b14:	a808      	add	r0, sp, #32
-	GPIO_InitStruct.Pin = FND4_Pin;
+  GPIO_InitStruct.Pin = FND4_Pin;
  8001b16:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
  8001b18:	0001      	movs	r1, r0
  8001b1a:	0020      	movs	r0, r4
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001b1c:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001b1e:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001b20:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001b22:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND4_GPIO_Port, &GPIO_InitStruct);
  8001b24:	f002 fd8e 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND5_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND5_Pin;
  8001b28:	2120      	movs	r1, #32
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
  8001b2a:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = FND5_Pin;
+  GPIO_InitStruct.Pin = FND5_Pin;
  8001b2c:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
  8001b2e:	a908      	add	r1, sp, #32
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001b30:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001b32:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001b34:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001b36:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND5_GPIO_Port, &GPIO_InitStruct);
  8001b38:	f002 fd84 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND6_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND6_Pin;
  8001b3c:	2140      	movs	r1, #64	; 0x40
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
  8001b3e:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = FND6_Pin;
+  GPIO_InitStruct.Pin = FND6_Pin;
  8001b40:	9108      	str	r1, [sp, #32]
-	LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
  8001b42:	a908      	add	r1, sp, #32
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001b44:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001b46:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001b48:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001b4a:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND6_GPIO_Port, &GPIO_InitStruct);
  8001b4c:	f002 fd7a 	bl	8004644 <LL_GPIO_Init>
 
-	/**/
-	GPIO_InitStruct.Pin = FND7_Pin;
+  /**/
+  GPIO_InitStruct.Pin = FND7_Pin;
  8001b50:	2280      	movs	r2, #128	; 0x80
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-	LL_GPIO_Init(FND7_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(FND7_GPIO_Port, &GPIO_InitStruct);
  8001b52:	a908      	add	r1, sp, #32
  8001b54:	0020      	movs	r0, r4
-	GPIO_InitStruct.Pin = FND7_Pin;
+  GPIO_InitStruct.Pin = FND7_Pin;
  8001b56:	9208      	str	r2, [sp, #32]
-	GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
  8001b58:	9709      	str	r7, [sp, #36]	; 0x24
-	GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
  8001b5a:	950a      	str	r5, [sp, #40]	; 0x28
-	GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
  8001b5c:	950b      	str	r5, [sp, #44]	; 0x2c
-	GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
  8001b5e:	950c      	str	r5, [sp, #48]	; 0x30
-	LL_GPIO_Init(FND7_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(FND7_GPIO_Port, &GPIO_InitStruct);
  8001b60:	f002 fd70 	bl	8004644 <LL_GPIO_Init>
   MODIFY_REG(SYSCFG->EXTICR[Line & 0xFF], SYSCFG_EXTICR1_EXTI0 << (Line >> 16), Port << (Line >> 16));
  8001b64:	210f      	movs	r1, #15
  8001b66:	4a87      	ldr	r2, [pc, #540]	; (8001d84 <main+0x448>)
-	/**/
-	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_INPUT);
+  /**/
+  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_INPUT);
 
-	/**/
-	EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_8;
-	EXTI_InitStruct.LineCommand = ENABLE;
+  /**/
+  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_8;
+  EXTI_InitStruct.LineCommand = ENABLE;
  8001b68:	a802      	add	r0, sp, #8
  8001b6a:	6913      	ldr	r3, [r2, #16]
  8001b6c:	438b      	bics	r3, r1
@@ -3899,20 +3901,20 @@ __STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMas
  8001b78:	6833      	ldr	r3, [r6, #0]
  8001b7a:	400b      	ands	r3, r1
  8001b7c:	6033      	str	r3, [r6, #0]
-	EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_8;
+  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_8;
  8001b7e:	2380      	movs	r3, #128	; 0x80
  8001b80:	005b      	lsls	r3, r3, #1
  8001b82:	9306      	str	r3, [sp, #24]
-	EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-	EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_RISING_FALLING;
+  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
+  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_RISING_FALLING;
  8001b84:	3bfd      	subs	r3, #253	; 0xfd
-	EXTI_InitStruct.LineCommand = ENABLE;
+  EXTI_InitStruct.LineCommand = ENABLE;
  8001b86:	7507      	strb	r7, [r0, #20]
-	EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_RISING_FALLING;
+  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_RISING_FALLING;
  8001b88:	7583      	strb	r3, [r0, #22]
-	EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
+  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
  8001b8a:	7545      	strb	r5, [r0, #21]
-	LL_EXTI_Init(&EXTI_InitStruct);
+  LL_EXTI_Init(&EXTI_InitStruct);
  8001b8c:	a806      	add	r0, sp, #24
  8001b8e:	f002 fd09 	bl	80045a4 <LL_EXTI_Init>
  */
@@ -3925,189 +3927,189 @@ __STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
  8001b94:	4a7d      	ldr	r2, [pc, #500]	; (8001d8c <main+0x450>)
  8001b96:	0089      	lsls	r1, r1, #2
  8001b98:	5853      	ldr	r3, [r2, r1]
-	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
  8001b9a:	2009      	movs	r0, #9
  8001b9c:	021b      	lsls	r3, r3, #8
  8001b9e:	0a1b      	lsrs	r3, r3, #8
  8001ba0:	5053      	str	r3, [r2, r1]
     NVIC->ISER[0U] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
  8001ba2:	2180      	movs	r1, #128	; 0x80
-	__HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
  8001ba4:	4b7a      	ldr	r3, [pc, #488]	; (8001d90 <main+0x454>)
  8001ba6:	6011      	str	r1, [r2, #0]
  8001ba8:	695a      	ldr	r2, [r3, #20]
-	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
  8001baa:	0029      	movs	r1, r5
-	__HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
  8001bac:	433a      	orrs	r2, r7
  8001bae:	615a      	str	r2, [r3, #20]
  8001bb0:	695b      	ldr	r3, [r3, #20]
-	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
  8001bb2:	002a      	movs	r2, r5
-	__HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
  8001bb4:	403b      	ands	r3, r7
  8001bb6:	9305      	str	r3, [sp, #20]
  8001bb8:	9b05      	ldr	r3, [sp, #20]
-	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
  8001bba:	f000 ff6d 	bl	8002a98 <HAL_NVIC_SetPriority>
-	HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
  8001bbe:	2009      	movs	r0, #9
  8001bc0:	f000 ff94 	bl	8002aec <HAL_NVIC_EnableIRQ>
-	ADC_ChannelConfTypeDef sConfig = { 0 };
+  ADC_ChannelConfTypeDef sConfig = {0};
  8001bc4:	220c      	movs	r2, #12
  8001bc6:	0029      	movs	r1, r5
  8001bc8:	a808      	add	r0, sp, #32
  8001bca:	f004 fadc 	bl	8006186 <memset>
-	hadc.Instance = ADC1;
+  hadc.Instance = ADC1;
  8001bce:	4c71      	ldr	r4, [pc, #452]	; (8001d94 <main+0x458>)
  8001bd0:	4b71      	ldr	r3, [pc, #452]	; (8001d98 <main+0x45c>)
-	if (HAL_ADC_Init(&hadc) != HAL_OK) {
+  if (HAL_ADC_Init(&hadc) != HAL_OK)
  8001bd2:	0020      	movs	r0, r4
-	hadc.Instance = ADC1;
+  hadc.Instance = ADC1;
  8001bd4:	6023      	str	r3, [r4, #0]
-	hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
  8001bd6:	2304      	movs	r3, #4
  8001bd8:	6163      	str	r3, [r4, #20]
-	hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
  8001bda:	23c2      	movs	r3, #194	; 0xc2
  8001bdc:	33ff      	adds	r3, #255	; 0xff
  8001bde:	61e3      	str	r3, [r4, #28]
-	hadc.Init.DMAContinuousRequests = DISABLE;
+  hadc.Init.DMAContinuousRequests = DISABLE;
  8001be0:	1d63      	adds	r3, r4, #5
-	hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
+  hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
  8001be2:	6127      	str	r7, [r4, #16]
-	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+  hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
  8001be4:	62a7      	str	r7, [r4, #40]	; 0x28
-	hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
  8001be6:	6065      	str	r5, [r4, #4]
-	hadc.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc.Init.Resolution = ADC_RESOLUTION_12B;
  8001be8:	60a5      	str	r5, [r4, #8]
-	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
  8001bea:	60e5      	str	r5, [r4, #12]
-	hadc.Init.LowPowerAutoWait = DISABLE;
+  hadc.Init.LowPowerAutoWait = DISABLE;
  8001bec:	7625      	strb	r5, [r4, #24]
-	hadc.Init.LowPowerAutoPowerOff = DISABLE;
+  hadc.Init.LowPowerAutoPowerOff = DISABLE;
  8001bee:	7665      	strb	r5, [r4, #25]
-	hadc.Init.ContinuousConvMode = DISABLE;
+  hadc.Init.ContinuousConvMode = DISABLE;
  8001bf0:	76a5      	strb	r5, [r4, #26]
-	hadc.Init.DiscontinuousConvMode = DISABLE;
+  hadc.Init.DiscontinuousConvMode = DISABLE;
  8001bf2:	76e5      	strb	r5, [r4, #27]
-	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
  8001bf4:	6225      	str	r5, [r4, #32]
-	hadc.Init.DMAContinuousRequests = DISABLE;
+  hadc.Init.DMAContinuousRequests = DISABLE;
  8001bf6:	77dd      	strb	r5, [r3, #31]
-	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+  sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
  8001bf8:	2680      	movs	r6, #128	; 0x80
-	if (HAL_ADC_Init(&hadc) != HAL_OK) {
+  if (HAL_ADC_Init(&hadc) != HAL_OK)
  8001bfa:	f000 fce5 	bl	80025c8 <HAL_ADC_Init>
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
  8001bfe:	2380      	movs	r3, #128	; 0x80
-	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+  sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
  8001c00:	0176      	lsls	r6, r6, #5
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
  8001c02:	055b      	lsls	r3, r3, #21
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
  8001c04:	a908      	add	r1, sp, #32
  8001c06:	0020      	movs	r0, r4
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
  8001c08:	930a      	str	r3, [sp, #40]	; 0x28
-	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+  sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
  8001c0a:	9609      	str	r6, [sp, #36]	; 0x24
-	sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Channel = ADC_CHANNEL_0;
  8001c0c:	9508      	str	r5, [sp, #32]
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
  8001c0e:	f000 fec3 	bl	8002998 <HAL_ADC_ConfigChannel>
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
  8001c12:	a908      	add	r1, sp, #32
  8001c14:	0020      	movs	r0, r4
-	sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_1;
  8001c16:	9708      	str	r7, [sp, #32]
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
+  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
  8001c18:	f000 febe 	bl	8002998 <HAL_ADC_ConfigChannel>
-	MX_USB_DEVICE_Init();
+  MX_USB_DEVICE_Init();
  8001c1c:	f003 feb8 	bl	8005990 <MX_USB_DEVICE_Init>
-	TIM_ClockConfigTypeDef sClockSourceConfig = { 0 };
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
  8001c20:	2210      	movs	r2, #16
  8001c22:	0029      	movs	r1, r5
  8001c24:	a808      	add	r0, sp, #32
  8001c26:	f004 faae 	bl	8006186 <memset>
-	TIM_MasterConfigTypeDef sMasterConfig = { 0 };
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
  8001c2a:	2208      	movs	r2, #8
  8001c2c:	0029      	movs	r1, r5
  8001c2e:	a806      	add	r0, sp, #24
  8001c30:	f004 faa9 	bl	8006186 <memset>
-	htim1.Instance = TIM1;
+  htim1.Instance = TIM1;
  8001c34:	4c59      	ldr	r4, [pc, #356]	; (8001d9c <main+0x460>)
  8001c36:	4b5a      	ldr	r3, [pc, #360]	; (8001da0 <main+0x464>)
-	if (HAL_TIM_Base_Init(&htim1) != HAL_OK) {
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
  8001c38:	0020      	movs	r0, r4
-	htim1.Instance = TIM1;
+  htim1.Instance = TIM1;
  8001c3a:	6023      	str	r3, [r4, #0]
-	htim1.Init.Prescaler = 79;
+  htim1.Init.Prescaler = 79;
  8001c3c:	234f      	movs	r3, #79	; 0x4f
  8001c3e:	6063      	str	r3, [r4, #4]
-	htim1.Init.Period = 600;
+  htim1.Init.Period = 600;
  8001c40:	2396      	movs	r3, #150	; 0x96
  8001c42:	009b      	lsls	r3, r3, #2
  8001c44:	60e3      	str	r3, [r4, #12]
-	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
  8001c46:	60a5      	str	r5, [r4, #8]
-	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
  8001c48:	6125      	str	r5, [r4, #16]
-	htim1.Init.RepetitionCounter = 0;
+  htim1.Init.RepetitionCounter = 0;
  8001c4a:	6165      	str	r5, [r4, #20]
-	htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
  8001c4c:	61a5      	str	r5, [r4, #24]
-	if (HAL_TIM_Base_Init(&htim1) != HAL_OK) {
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
  8001c4e:	f002 fbbb 	bl	80043c8 <HAL_TIM_Base_Init>
-	if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK) {
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
  8001c52:	a908      	add	r1, sp, #32
  8001c54:	0020      	movs	r0, r4
-	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
  8001c56:	9608      	str	r6, [sp, #32]
-	if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK) {
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
  8001c58:	f002 fbde 	bl	8004418 <HAL_TIM_ConfigClockSource>
-	if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
  8001c5c:	a906      	add	r1, sp, #24
  8001c5e:	0020      	movs	r0, r4
-	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
  8001c60:	9506      	str	r5, [sp, #24]
-	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
  8001c62:	9507      	str	r5, [sp, #28]
-	if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
  8001c64:	f002 fc6e 	bl	8004544 <HAL_TIMEx_MasterConfigSynchronization>
-	hi2c1.Instance = I2C1;
+  hi2c1.Instance = I2C1;
  8001c68:	4e4e      	ldr	r6, [pc, #312]	; (8001da4 <main+0x468>)
  8001c6a:	4b4f      	ldr	r3, [pc, #316]	; (8001da8 <main+0x46c>)
-	if (HAL_I2C_Init(&hi2c1) != HAL_OK) {
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
  8001c6c:	0030      	movs	r0, r6
-	hi2c1.Instance = I2C1;
+  hi2c1.Instance = I2C1;
  8001c6e:	6033      	str	r3, [r6, #0]
-	hi2c1.Init.Timing = 0x0000020B;
+  hi2c1.Init.Timing = 0x0000020B;
  8001c70:	4b4e      	ldr	r3, [pc, #312]	; (8001dac <main+0x470>)
-	hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
  8001c72:	60f7      	str	r7, [r6, #12]
-	hi2c1.Init.Timing = 0x0000020B;
+  hi2c1.Init.Timing = 0x0000020B;
  8001c74:	6073      	str	r3, [r6, #4]
-	hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.OwnAddress1 = 0;
  8001c76:	60b5      	str	r5, [r6, #8]
-	hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
  8001c78:	6135      	str	r5, [r6, #16]
-	hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2 = 0;
  8001c7a:	6175      	str	r5, [r6, #20]
-	hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
  8001c7c:	61b5      	str	r5, [r6, #24]
-	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
  8001c7e:	61f5      	str	r5, [r6, #28]
-	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
  8001c80:	6235      	str	r5, [r6, #32]
-	if (HAL_I2C_Init(&hi2c1) != HAL_OK) {
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
  8001c82:	f001 faa5 	bl	80031d0 <HAL_I2C_Init>
-	if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE)
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
  8001c86:	0029      	movs	r1, r5
  8001c88:	0030      	movs	r0, r6
  8001c8a:	f001 fe2d 	bl	80038e8 <HAL_I2CEx_ConfigAnalogFilter>
-	if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK) {
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
  8001c8e:	0029      	movs	r1, r5
  8001c90:	0030      	movs	r0, r6
  8001c92:	f001 fe4f 	bl	8003934 <HAL_I2CEx_ConfigDigitalFilter>
@@ -4304,11 +4306,11 @@ __STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
  8001e4c:	20000aec 	.word	0x20000aec
 
 08001e50 <Error_Handler>:
-void Error_Handler(void) {
-	/* USER CODE BEGIN Error_Handler_Debug */
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
 
-	/* USER CODE END Error_Handler_Debug */
+  /* USER CODE END Error_Handler_Debug */
 }
  8001e50:	4770      	bx	lr
 	...
@@ -5563,7 +5565,7 @@ LoopForever:
   ldr r1, =_edata
  80023a4:	2000034c 	.word	0x2000034c
   ldr r2, =_sidata
- 80023a8:	080078a0 	.word	0x080078a0
+ 80023a8:	08007894 	.word	0x08007894
   ldr r2, =_sbss
  80023ac:	2000034c 	.word	0x2000034c
   ldr r4, =_ebss
@@ -16277,11 +16279,11 @@ void MX_USB_DEVICE_Init(void)
  80059f4:	20000288 	.word	0x20000288
 
 080059f8 <CDC_DeInit_FS>:
- */
-static int8_t CDC_DeInit_FS(void) {
-	/* USER CODE BEGIN 4 */
+static int8_t CDC_DeInit_FS(void)
+{
+  /* USER CODE BEGIN 4 */
 	return (USBD_OK);
-	/* USER CODE END 4 */
+  /* USER CODE END 4 */
 }
  80059f8:	2000      	movs	r0, #0
  80059fa:	4770      	bx	lr
@@ -16291,13 +16293,13 @@ static int8_t CDC_DeInit_FS(void) {
 	}
 
 	return (USBD_OK);
-	/* USER CODE END 5 */
+  /* USER CODE END 5 */
 }
  80059fc:	2000      	movs	r0, #0
  80059fe:	4770      	bx	lr
 
 08005a00 <CDC_Init_FS>:
-static int8_t CDC_Init_FS(void) {
+{
  8005a00:	b510      	push	{r4, lr}
 	USBD_CDC_SetTxBuffer(&hUsbDeviceFS, UserTxBufferFS, 0);
  8005a02:	4c06      	ldr	r4, [pc, #24]	; (8005a1c <CDC_Init_FS+0x1c>)
@@ -16318,23 +16320,23 @@ static int8_t CDC_Init_FS(void) {
  8005a24:	20000db0 	.word	0x20000db0
 
 08005a28 <CDC_Transmit_FS>:
- *
- * @param  Buf: Buffer of data to be sent
- * @param  Len: Number of data to be sent (in bytes)
- * @retval USBD_OK if all operations are OK else USBD_FAIL or USBD_BUSY
- */
-uint8_t CDC_Transmit_FS(uint8_t *Buf, uint16_t Len) {
+  * @param  Buf: Buffer of data to be sent
+  * @param  Len: Number of data to be sent (in bytes)
+  * @retval USBD_OK if all operations are OK else USBD_FAIL or USBD_BUSY
+  */
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
+{
  8005a28:	000a      	movs	r2, r1
-	uint8_t result = USBD_OK;
-	/* USER CODE BEGIN 7 */
+  uint8_t result = USBD_OK;
+  /* USER CODE BEGIN 7 */
 	USBD_CDC_HandleTypeDef *hcdc =
  8005a2a:	21ae      	movs	r1, #174	; 0xae
-uint8_t CDC_Transmit_FS(uint8_t *Buf, uint16_t Len) {
+{
  8005a2c:	b510      	push	{r4, lr}
 	USBD_CDC_HandleTypeDef *hcdc =
  8005a2e:	4c08      	ldr	r4, [pc, #32]	; (8005a50 <CDC_Transmit_FS+0x28>)
  8005a30:	0089      	lsls	r1, r1, #2
-uint8_t CDC_Transmit_FS(uint8_t *Buf, uint16_t Len) {
+{
  8005a32:	0003      	movs	r3, r0
 	USBD_CDC_HandleTypeDef *hcdc =
  8005a34:	5860      	ldr	r0, [r4, r1]
@@ -16355,20 +16357,20 @@ uint8_t CDC_Transmit_FS(uint8_t *Buf, uint16_t Len) {
 	result = USBD_CDC_TransmitPacket(&hUsbDeviceFS);
  8005a48:	0020      	movs	r0, r4
  8005a4a:	f7ff fb69 	bl	8005120 <USBD_CDC_TransmitPacket>
-	/* USER CODE END 7 */
-	return result;
+  /* USER CODE END 7 */
+  return result;
 }
  8005a4e:	bd10      	pop	{r4, pc}
  8005a50:	20000aec 	.word	0x20000aec
 
 08005a54 <CDC_Receive_FS>:
-static int8_t CDC_Receive_FS(uint8_t *Buf, uint32_t *Len) {
+{
  8005a54:	b5f0      	push	{r4, r5, r6, r7, lr}
  8005a56:	0004      	movs	r4, r0
 	USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
  8005a58:	4d9b      	ldr	r5, [pc, #620]	; (8005cc8 <CDC_Receive_FS+0x274>)
  8005a5a:	0001      	movs	r1, r0
-static int8_t CDC_Receive_FS(uint8_t *Buf, uint32_t *Len) {
+{
  8005a5c:	b087      	sub	sp, #28
 	USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
  8005a5e:	0028      	movs	r0, r5
@@ -16881,7 +16883,7 @@ static void IntToUnicode(uint32_t value, uint8_t * pbuf, uint8_t len)
  8005dc0:	bd10      	pop	{r4, pc}
  8005dc2:	46c0      	nop			; (mov r8, r8)
  8005dc4:	20000f54 	.word	0x20000f54
- 8005dc8:	08007851 	.word	0x08007851
+ 8005dc8:	08007848 	.word	0x08007848
 
 08005dcc <USBD_FS_ConfigStrDescriptor>:
 {
@@ -17292,7 +17294,7 @@ static void SystemClockConfig_Resume(void)
  8005fb2:	0018      	movs	r0, r3
  8005fb4:	bd10      	pop	{r4, pc}
  8005fb6:	46c0      	nop			; (mov r8, r8)
- 8005fb8:	0800785e 	.word	0x0800785e
+ 8005fb8:	08007855 	.word	0x08007855
 
 08005fbc <USBD_LL_Start>:
   hal_status = HAL_PCD_Start(pdev->pData);
@@ -17312,7 +17314,7 @@ static void SystemClockConfig_Resume(void)
  8005fd2:	0018      	movs	r0, r3
  8005fd4:	bd10      	pop	{r4, pc}
  8005fd6:	46c0      	nop			; (mov r8, r8)
- 8005fd8:	0800785e 	.word	0x0800785e
+ 8005fd8:	08007855 	.word	0x08007855
 
 08005fdc <USBD_LL_Stop>:
   hal_status = HAL_PCD_Stop(pdev->pData);
@@ -17332,7 +17334,7 @@ static void SystemClockConfig_Resume(void)
  8005ff2:	0018      	movs	r0, r3
  8005ff4:	bd10      	pop	{r4, pc}
  8005ff6:	46c0      	nop			; (mov r8, r8)
- 8005ff8:	0800785e 	.word	0x0800785e
+ 8005ff8:	08007855 	.word	0x08007855
 
 08005ffc <USBD_LL_OpenEP>:
 {
@@ -17353,7 +17355,7 @@ static void SystemClockConfig_Resume(void)
 }
  8006018:	0018      	movs	r0, r3
  800601a:	bd10      	pop	{r4, pc}
- 800601c:	0800785e 	.word	0x0800785e
+ 800601c:	08007855 	.word	0x08007855
 
 08006020 <USBD_LL_CloseEP>:
   hal_status = HAL_PCD_EP_Close(pdev->pData, ep_addr);
@@ -17373,7 +17375,7 @@ static void SystemClockConfig_Resume(void)
  8006036:	0018      	movs	r0, r3
  8006038:	bd10      	pop	{r4, pc}
  800603a:	46c0      	nop			; (mov r8, r8)
- 800603c:	0800785e 	.word	0x0800785e
+ 800603c:	08007855 	.word	0x08007855
 
 08006040 <USBD_LL_StallEP>:
   hal_status = HAL_PCD_EP_SetStall(pdev->pData, ep_addr);
@@ -17393,7 +17395,7 @@ static void SystemClockConfig_Resume(void)
  8006056:	0018      	movs	r0, r3
  8006058:	bd10      	pop	{r4, pc}
  800605a:	46c0      	nop			; (mov r8, r8)
- 800605c:	0800785e 	.word	0x0800785e
+ 800605c:	08007855 	.word	0x08007855
 
 08006060 <USBD_LL_ClearStallEP>:
   hal_status = HAL_PCD_EP_ClrStall(pdev->pData, ep_addr);
@@ -17413,7 +17415,7 @@ static void SystemClockConfig_Resume(void)
  8006076:	0018      	movs	r0, r3
  8006078:	bd10      	pop	{r4, pc}
  800607a:	46c0      	nop			; (mov r8, r8)
- 800607c:	0800785e 	.word	0x0800785e
+ 800607c:	08007855 	.word	0x08007855
 
 08006080 <USBD_LL_IsStallEP>:
   PCD_HandleTypeDef *hpcd = (PCD_HandleTypeDef*) pdev->pData;
@@ -17461,7 +17463,7 @@ static void SystemClockConfig_Resume(void)
  80060ba:	0018      	movs	r0, r3
  80060bc:	bd10      	pop	{r4, pc}
  80060be:	46c0      	nop			; (mov r8, r8)
- 80060c0:	0800785e 	.word	0x0800785e
+ 80060c0:	08007855 	.word	0x08007855
 
 080060c4 <USBD_LL_Transmit>:
 {
@@ -17480,7 +17482,7 @@ static void SystemClockConfig_Resume(void)
  80060da:	0018      	movs	r0, r3
  80060dc:	bd10      	pop	{r4, pc}
  80060de:	46c0      	nop			; (mov r8, r8)
- 80060e0:	0800785e 	.word	0x0800785e
+ 80060e0:	08007855 	.word	0x08007855
 
 080060e4 <USBD_LL_PrepareReceive>:
 {
@@ -17499,7 +17501,7 @@ static void SystemClockConfig_Resume(void)
  80060fa:	0018      	movs	r0, r3
  80060fc:	bd10      	pop	{r4, pc}
  80060fe:	46c0      	nop			; (mov r8, r8)
- 8006100:	0800785e 	.word	0x0800785e
+ 8006100:	08007855 	.word	0x08007855
 
 08006104 <USBD_LL_GetRxDataSize>:
   return HAL_PCD_EP_GetRxCount((PCD_HandleTypeDef*) pdev->pData, ep_addr);
@@ -17560,10 +17562,10 @@ static void SystemClockConfig_Resume(void)
  800615e:	4798      	blx	r3
  8006160:	3601      	adds	r6, #1
  8006162:	e7f2      	b.n	800614a <__libc_init_array+0x1e>
- 8006164:	08007898 	.word	0x08007898
- 8006168:	08007898 	.word	0x08007898
- 800616c:	08007898 	.word	0x08007898
- 8006170:	0800789c 	.word	0x0800789c
+ 8006164:	0800788c 	.word	0x0800788c
+ 8006168:	0800788c 	.word	0x0800788c
+ 800616c:	0800788c 	.word	0x0800788c
+ 8006170:	08007890 	.word	0x08007890
 
 08006174 <memcpy>:
  8006174:	2300      	movs	r3, #0
@@ -17950,9 +17952,9 @@ static void SystemClockConfig_Resume(void)
  800647c:	9803      	ldr	r0, [sp, #12]
  800647e:	f000 f879 	bl	8006574 <_printf_i>
  8006482:	e7ea      	b.n	800645a <_svfiprintf_r+0x1be>
- 8006484:	08007862 	.word	0x08007862
- 8006488:	08007868 	.word	0x08007868
- 800648c:	0800786c 	.word	0x0800786c
+ 8006484:	08007859 	.word	0x08007859
+ 8006488:	0800785f 	.word	0x0800785f
+ 800648c:	08007863 	.word	0x08007863
  8006490:	00000000 	.word	0x00000000
  8006494:	080061d9 	.word	0x080061d9
 
@@ -18326,8 +18328,8 @@ static void SystemClockConfig_Resume(void)
  8006776:	4240      	negs	r0, r0
  8006778:	b009      	add	sp, #36	; 0x24
  800677a:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 800677c:	08007873 	.word	0x08007873
- 8006780:	08007884 	.word	0x08007884
+ 800677c:	0800786a 	.word	0x0800786a
+ 8006780:	0800787b 	.word	0x0800787b
 
 08006784 <memchr>:
  8006784:	b2c9      	uxtb	r1, r1
