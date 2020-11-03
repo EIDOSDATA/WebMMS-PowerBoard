@@ -152,7 +152,7 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t *pbuf, uint16_t length);
 static int8_t CDC_Receive_FS(uint8_t *pbuf, uint32_t *Len);
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_DECLARATION */
-void GetStatus() __attribute__((always_inline))
+static inline void GetStatus()
 {
 	pstat[0] = (PWR1_GPIO_Port->IDR & PWR1_Pin) ? 0 : 1;
 	pstat[1] = (PWR2_GPIO_Port->IDR & PWR2_Pin) ? 0 : 1;

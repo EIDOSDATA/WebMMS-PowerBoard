@@ -1,0 +1,175 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: •ÏVision V5.30.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: qrw wqerw, x, LIC=21EWF-64FSD-Y7XRW-QVZWQ-RR77F-SMXIR
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.30.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.14
+Assembler:       Armasm.exe V6.14
+Linker/Locator:  ArmLink.exe V6.14
+Library Manager: ArmAr.exe V6.14
+Hex Converter:   FromElf.exe V6.14
+CPU DLL:         SARMCM3.DLL V5.30.0.0
+Dialog DLL:      DARMCM1.DLL V1.19.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TARMCM1.DLL V1.14.2.0
+ 
+<h2>Project:</h2>
+C:\Users\nexse\Desktop\Keil 1103 Web_MMS_Power\MDK-ARM\Web_MMS_Power.uvprojx
+Project File Date:  11/03/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.14', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'Web_MMS_Power'
+assembling startup_stm32f042x6.s...
+compiling fonts.c...
+compiling stm32f0xx_it.c...
+compiling usb_device.c...
+compiling stm32f0xx_hal_msp.c...
+compiling ssd1306.c...
+../Core/Src/main.c(111): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOC, (1 << now), SET);
+                ~~~~~~~~~~~~~~~~~                    ^~~
+../Core/Src/main.c(117): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, 0x00FF, RESET);
+                ~~~~~~~~~~~~~~~~~                ^~~~~
+../Core/Src/main.c(118): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, SegVar[now - 13], SET);
+                ~~~~~~~~~~~~~~~~~                          ^~~
+../Core/Src/main.c(119): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOC, (1 << now), RESET);
+                ~~~~~~~~~~~~~~~~~                    ^~~~~
+../Core/Src/main.c(141): warning: incompatible pointer types passing 'uint16_t [2]' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+        HAL_ADC_Start_DMA(&hadc, adcValue, 2); // ADC1 3????????
+                                 ^~~~~~~~
+../Drivers/STM32F0xx_HAL_Driver/Inc\stm32f0xx_hal_adc.h(959): note: passing argument to parameter 'pData' here
+HAL_StatusTypeDef       HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length);
+                                                                             ^
+../Core/Src/main.c(172): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, SET);
+                ~~~~~~~~~~~~~~~~~                                       ^~~
+../Core/Src/main.c(176): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                                       ^~~~~
+../Core/Src/main.c(270): warning: implicit declaration of function 'USBD_Stop' is invalid in C99 [-Wimplicit-function-declaration]
+                        USBD_Stop(&hUsbDeviceFS);
+                        ^
+../Core/Src/main.c(271): warning: implicit declaration of function 'USBD_DeInit' is invalid in C99 [-Wimplicit-function-declaration]
+                        USBD_DeInit(&hUsbDeviceFS);
+                        ^
+9 warnings generated.
+compiling main.c...
+compiling stm32f0xx_ll_gpio.c...
+compiling usbd_desc.c...
+../USB_DEVICE/App/usbd_cdc_if.c(301): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(310): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(319): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(328): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(337): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(346): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, RESET);
+                ~~~~~~~~~~~~~~~~~                           ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(356): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, SET);
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(365): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, SET);
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(374): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, SET);               
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(383): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, SET);               
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(392): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, SET);               
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(401): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, SET);               
+                ~~~~~~~~~~~~~~~~~                           ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(411): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, 0xFC00, RESET);
+                ~~~~~~~~~~~~~~~~~                ^~~~~
+../USB_DEVICE/App/usbd_cdc_if.c(420): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, 0xFC00, SET);
+                ~~~~~~~~~~~~~~~~~                ^~~
+../USB_DEVICE/App/usbd_cdc_if.c(448): warning: 'sprintf' will always overflow; destination buffer has size 20, but format string expands to at least 27 [-Wfortify-source]
+                sprintf(buf, "bat : %d%d.%d :: cap : %d%d.%d\r\n", btmp / 100,
+                ^
+15 warnings generated.
+compiling usbd_cdc_if.c...
+compiling stm32f0xx_ll_usb.c...
+compiling usbd_conf.c...
+compiling stm32f0xx_hal_pcd.c...
+compiling stm32f0xx_hal_pcd_ex.c...
+compiling stm32f0xx_ll_rcc.c...
+compiling stm32f0xx_ll_utils.c...
+compiling stm32f0xx_ll_exti.c...
+compiling stm32f0xx_hal_i2c_ex.c...
+compiling stm32f0xx_hal.c...
+compiling stm32f0xx_hal_rcc_ex.c...
+compiling stm32f0xx_hal_gpio.c...
+compiling stm32f0xx_hal_rcc.c...
+compiling stm32f0xx_hal_dma.c...
+compiling stm32f0xx_hal_pwr.c...
+compiling stm32f0xx_hal_pwr_ex.c...
+compiling stm32f0xx_hal_cortex.c...
+compiling stm32f0xx_hal_flash_ex.c...
+compiling stm32f0xx_hal_flash.c...
+compiling stm32f0xx_hal_exti.c...
+compiling stm32f0xx_hal_adc_ex.c...
+compiling stm32f0xx_hal_i2c.c...
+compiling system_stm32f0xx.c...
+compiling stm32f0xx_hal_adc.c...
+compiling stm32f0xx_hal_tim_ex.c...
+compiling usbd_core.c...
+compiling usbd_ctlreq.c...
+compiling usbd_ioreq.c...
+compiling usbd_cdc.c...
+compiling stm32f0xx_hal_tim.c...
+linking...
+Program Size: Code=22502 RO-data=3738 RW-data=768 ZI-data=5344  
+FromELF: creating hex file...
+"Web_MMS_Power\Web_MMS_Power.axf" - 0 Error(s), 24 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F0xx_DFP.2.1.0.pack
+                Keil.STM32F0xx_DFP.2.1.0
+                STMicroelectronics STM32F0 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Web_MMS_Power
+  C:\Users\nexse\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  C:\Users\nexse\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+Build Time Elapsed:  00:00:04
+</pre>
+</body>
+</html>
