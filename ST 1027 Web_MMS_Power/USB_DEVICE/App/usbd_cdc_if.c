@@ -48,12 +48,12 @@ char Manual[] = "EACH POWER STOPS WHEN YOU PRESS ONE MORE TIME.\r\n\r\n"
 		"Y : No.6 Power ON\r\n"
 		"A : All Activated\r\n"
 		"S : Shutdown\r\n\r\n"
-		"Z : No.1 Power ON\r\n"
-		"X : No.2 Power ON\r\n"
-		"C : No.3 Power ON\r\n"
-		"V : No.4 Power ON\r\n"
-		"B : No.5 Power ON\r\n"
-		"N : No.6 Power ON\r\n";
+		"Z : No.1 Power OFF\r\n"
+		"X : No.2 Power OFF\r\n"
+		"C : No.3 Power OFF\r\n"
+		"V : No.4 Power OFF\r\n"
+		"B : No.5 Power OFF\r\n"
+		"N : No.6 Power OFF\r\n";
 
 /* USER CODE END PV */
 

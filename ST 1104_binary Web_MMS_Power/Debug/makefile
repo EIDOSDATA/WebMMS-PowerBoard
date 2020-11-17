@@ -50,8 +50,8 @@ Web_MMS_Power.bin \
 all: Web_MMS_Power.elf secondary-outputs
 
 # Tool invocations
-Web_MMS_Power.elf: $(OBJS) $(USER_OBJS) C:\Users\nexse\STM32CubeIDE\workspace_1.4.0\Web_MMS_Power\STM32F042C6TX_FLASH.ld
-	arm-none-eabi-gcc -o "Web_MMS_Power.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\nexse\STM32CubeIDE\workspace_1.4.0\Web_MMS_Power\STM32F042C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Web_MMS_Power.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Web_MMS_Power.elf: $(OBJS) $(USER_OBJS) C:\Users\nexse\STM32CubeIDE\workspace_1.4.2\Web_MMS_Power\STM32F042C6TX_FLASH.ld
+	arm-none-eabi-gcc -o "Web_MMS_Power.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\nexse\STM32CubeIDE\workspace_1.4.2\Web_MMS_Power\STM32F042C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Web_MMS_Power.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

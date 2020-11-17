@@ -2300,7 +2300,7 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008007830                . = ALIGN (0x4)
                 0x0000000008007830                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x364 load address 0x0000000008007830
+.data           0x0000000020000000      0x36c load address 0x0000000008007830
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -2338,107 +2338,107 @@ LOAD c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .data.USBD_CDC_OtherSpeedCfgDesc
                 0x00000000200000e4       0x43 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
                 0x00000000200000e4                USBD_CDC_OtherSpeedCfgDesc
- .data.Manual   0x0000000020000127      0x178 USB_DEVICE/App/usbd_cdc_if.o
+ .data.Manual   0x0000000020000127      0x17e USB_DEVICE/App/usbd_cdc_if.o
                 0x0000000020000127                Manual
- *fill*         0x000000002000029f        0x1 
+ *fill*         0x00000000200002a5        0x3 
  .data.USBD_Interface_fops_FS
-                0x00000000200002a0       0x10 USB_DEVICE/App/usbd_cdc_if.o
-                0x00000000200002a0                USBD_Interface_fops_FS
- .data.FS_Desc  0x00000000200002b0       0x1c USB_DEVICE/App/usbd_desc.o
-                0x00000000200002b0                FS_Desc
+                0x00000000200002a8       0x10 USB_DEVICE/App/usbd_cdc_if.o
+                0x00000000200002a8                USBD_Interface_fops_FS
+ .data.FS_Desc  0x00000000200002b8       0x1c USB_DEVICE/App/usbd_desc.o
+                0x00000000200002b8                FS_Desc
  .data.USBD_FS_DeviceDesc
-                0x00000000200002cc       0x12 USB_DEVICE/App/usbd_desc.o
-                0x00000000200002cc                USBD_FS_DeviceDesc
- *fill*         0x00000000200002de        0x2 
+                0x00000000200002d4       0x12 USB_DEVICE/App/usbd_desc.o
+                0x00000000200002d4                USBD_FS_DeviceDesc
+ *fill*         0x00000000200002e6        0x2 
  .data.USBD_LangIDDesc
-                0x00000000200002e0        0x4 USB_DEVICE/App/usbd_desc.o
-                0x00000000200002e0                USBD_LangIDDesc
+                0x00000000200002e8        0x4 USB_DEVICE/App/usbd_desc.o
+                0x00000000200002e8                USBD_LangIDDesc
  .data.USBD_StringSerial
-                0x00000000200002e4       0x1a USB_DEVICE/App/usbd_desc.o
-                0x00000000200002e4                USBD_StringSerial
- *fill*         0x00000000200002fe        0x2 
+                0x00000000200002ec       0x1a USB_DEVICE/App/usbd_desc.o
+                0x00000000200002ec                USBD_StringSerial
+ *fill*         0x0000000020000306        0x2 
  .data._impure_ptr
-                0x0000000020000300        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
-                0x0000000020000300                _impure_ptr
+                0x0000000020000308        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
+                0x0000000020000308                _impure_ptr
  .data.impure_data
-                0x0000000020000304       0x60 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
-                0x0000000020000364                . = ALIGN (0x4)
-                0x0000000020000364                _edata = .
+                0x000000002000030c       0x60 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
+                0x000000002000036c                . = ALIGN (0x4)
+                0x000000002000036c                _edata = .
 
-.igot.plt       0x0000000020000364        0x0 load address 0x0000000008007b94
- .igot.plt      0x0000000020000364        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
-                0x0000000020000364                . = ALIGN (0x4)
+.igot.plt       0x000000002000036c        0x0 load address 0x0000000008007b9c
+ .igot.plt      0x000000002000036c        0x0 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
+                0x000000002000036c                . = ALIGN (0x4)
 
-.bss            0x0000000020000364     0x1084 load address 0x0000000008007b94
-                0x0000000020000364                _sbss = .
-                0x0000000020000364                __bss_start__ = _sbss
+.bss            0x000000002000036c     0x1084 load address 0x0000000008007b9c
+                0x000000002000036c                _sbss = .
+                0x000000002000036c                __bss_start__ = _sbss
  *(.bss)
- .bss           0x0000000020000364       0x1c c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
+ .bss           0x000000002000036c       0x1c c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/crtbegin.o
  *(.bss*)
- .bss._Inited   0x0000000020000380        0x1 Core/Src/main.o
-                0x0000000020000380                _Inited
+ .bss._Inited   0x0000000020000388        0x1 Core/Src/main.o
+                0x0000000020000388                _Inited
  .bss.usbInitFlag
-                0x0000000020000381        0x1 Core/Src/main.o
-                0x0000000020000381                usbInitFlag
- .bss.SSD1306   0x0000000020000382        0x6 Core/Src/ssd1306.o
+                0x0000000020000389        0x1 Core/Src/main.o
+                0x0000000020000389                usbInitFlag
+ .bss.SSD1306   0x000000002000038a        0x6 Core/Src/ssd1306.o
  .bss.SSD1306_Buffer
-                0x0000000020000388      0x400 Core/Src/ssd1306.o
+                0x0000000020000390      0x400 Core/Src/ssd1306.o
  .bss.__sbrk_heap_end
-                0x0000000020000788        0x4 Core/Src/sysmem.o
+                0x0000000020000790        0x4 Core/Src/sysmem.o
  .bss.cfgidx.9645
-                0x000000002000078c        0x1 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
- .bss.action    0x000000002000078d        0x1 USB_DEVICE/App/usbd_cdc_if.o
-                0x000000002000078d                action
- *fill*         0x000000002000078e        0x2 
- .bss.mem.9714  0x0000000020000790      0x220 USB_DEVICE/Target/usbd_conf.o
+                0x0000000020000794        0x1 Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o
+ .bss.action    0x0000000020000795        0x1 USB_DEVICE/App/usbd_cdc_if.o
+                0x0000000020000795                action
+ *fill*         0x0000000020000796        0x2 
+ .bss.mem.9714  0x0000000020000798      0x220 USB_DEVICE/Target/usbd_conf.o
  .bss.__malloc_free_list
-                0x00000000200009b0        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009b0                __malloc_free_list
+                0x00000000200009b8        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009b8                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x00000000200009b4        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009b4                __malloc_sbrk_start
+                0x00000000200009bc        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009bc                __malloc_sbrk_start
  *(COMMON)
- COMMON         0x00000000200009b8      0x148 Core/Src/main.o
-                0x00000000200009b8                hi2c1
-                0x0000000020000a04                _cresult
-                0x0000000020000a08                cdata
-                0x0000000020000a1c                _bresult
-                0x0000000020000a20                bdata
-                0x0000000020000a34                htim1
-                0x0000000020000a74                SegVar
-                0x0000000020000a78                hdma_adc
-                0x0000000020000abc                adcValue
-                0x0000000020000ac0                hadc
- COMMON         0x0000000020000b00        0x4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
-                0x0000000020000b00                uwTick
- COMMON         0x0000000020000b04      0x2c4 USB_DEVICE/App/usb_device.o
-                0x0000000020000b04                hUsbDeviceFS
- COMMON         0x0000000020000dc8      0x1a5 USB_DEVICE/App/usbd_cdc_if.o
-                0x0000000020000dc8                pstat
-                0x0000000020000dc9                UserRxBufferFS
-                0x0000000020000e91                UserTxBufferFS
-                0x0000000020000f59                buf
- *fill*         0x0000000020000f6d        0x3 
- COMMON         0x0000000020000f70      0x200 USB_DEVICE/App/usbd_desc.o
-                0x0000000020000f70                USBD_StrDesc
- COMMON         0x0000000020001170      0x274 USB_DEVICE/Target/usbd_conf.o
-                0x0000000020001170                hpcd_USB_FS
- COMMON         0x00000000200013e4        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-reent.o)
-                0x00000000200013e4                errno
-                0x00000000200013e8                . = ALIGN (0x4)
-                0x00000000200013e8                _ebss = .
-                0x00000000200013e8                __bss_end__ = _ebss
+ COMMON         0x00000000200009c0      0x148 Core/Src/main.o
+                0x00000000200009c0                hi2c1
+                0x0000000020000a0c                _cresult
+                0x0000000020000a10                cdata
+                0x0000000020000a24                _bresult
+                0x0000000020000a28                bdata
+                0x0000000020000a3c                htim1
+                0x0000000020000a7c                SegVar
+                0x0000000020000a80                hdma_adc
+                0x0000000020000ac4                adcValue
+                0x0000000020000ac8                hadc
+ COMMON         0x0000000020000b08        0x4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
+                0x0000000020000b08                uwTick
+ COMMON         0x0000000020000b0c      0x2c4 USB_DEVICE/App/usb_device.o
+                0x0000000020000b0c                hUsbDeviceFS
+ COMMON         0x0000000020000dd0      0x1a5 USB_DEVICE/App/usbd_cdc_if.o
+                0x0000000020000dd0                pstat
+                0x0000000020000dd1                UserRxBufferFS
+                0x0000000020000e99                UserTxBufferFS
+                0x0000000020000f61                buf
+ *fill*         0x0000000020000f75        0x3 
+ COMMON         0x0000000020000f78      0x200 USB_DEVICE/App/usbd_desc.o
+                0x0000000020000f78                USBD_StrDesc
+ COMMON         0x0000000020001178      0x274 USB_DEVICE/Target/usbd_conf.o
+                0x0000000020001178                hpcd_USB_FS
+ COMMON         0x00000000200013ec        0x4 c:/st/stm32cubeide_1.4.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.7-2018-q2-update.win32_1.4.0.202007081208/tools/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-reent.o)
+                0x00000000200013ec                errno
+                0x00000000200013f0                . = ALIGN (0x4)
+                0x00000000200013f0                _ebss = .
+                0x00000000200013f0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200013e8      0x300 load address 0x0000000008007b94
-                0x00000000200013e8                . = ALIGN (0x8)
+                0x00000000200013f0      0x300 load address 0x0000000008007b9c
+                0x00000000200013f0                . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
-                0x00000000200013e8                PROVIDE (_end = .)
-                0x00000000200014e8                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200013e8      0x100 
-                0x00000000200016e8                . = (. + _Min_Stack_Size)
- *fill*         0x00000000200014e8      0x200 
-                0x00000000200016e8                . = ALIGN (0x8)
+                0x00000000200013f0                PROVIDE (_end = .)
+                0x00000000200014f0                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200013f0      0x100 
+                0x00000000200016f0                . = (. + _Min_Stack_Size)
+ *fill*         0x00000000200014f0      0x200 
+                0x00000000200016f0                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -2753,7 +2753,7 @@ OUTPUT(Web_MMS_Power.elf elf32-littlearm)
  .debug_line    0x000000000000b854      0x51e USB_DEVICE/App/usbd_desc.o
  .debug_line    0x000000000000bd72      0x7d8 USB_DEVICE/Target/usbd_conf.o
 
-.debug_str      0x0000000000000000     0x5f19
+.debug_str      0x0000000000000000     0x5f59
  .debug_str     0x0000000000000000      0x27d Core/Src/fonts.o
                                         0x2e0 (size before relaxing)
  .debug_str     0x000000000000027d     0x1b78 Core/Src/main.o
@@ -2810,11 +2810,11 @@ OUTPUT(Web_MMS_Power.elf elf32-littlearm)
                                         0xb79 (size before relaxing)
  .debug_str     0x0000000000005c41       0x3e USB_DEVICE/App/usb_device.o
                                         0xb90 (size before relaxing)
- .debug_str     0x0000000000005c7f       0xa9 USB_DEVICE/App/usbd_cdc_if.o
+ .debug_str     0x0000000000005c7f       0xe9 USB_DEVICE/App/usbd_cdc_if.o
                                         0xcc1 (size before relaxing)
- .debug_str     0x0000000000005d28      0x170 USB_DEVICE/App/usbd_desc.o
+ .debug_str     0x0000000000005d68      0x170 USB_DEVICE/App/usbd_desc.o
                                         0x952 (size before relaxing)
- .debug_str     0x0000000000005e98       0x81 USB_DEVICE/Target/usbd_conf.o
+ .debug_str     0x0000000000005ed8       0x81 USB_DEVICE/Target/usbd_conf.o
                                        0x1583 (size before relaxing)
 
 .comment        0x0000000000000000       0x7b
