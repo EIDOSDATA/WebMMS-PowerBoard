@@ -1,2 +1,0 @@
-# WebMMS-PowerBoard
-WebMMS PowerBoard
