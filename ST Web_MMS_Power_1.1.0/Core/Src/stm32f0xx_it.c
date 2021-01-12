@@ -62,8 +62,8 @@ extern ADC_HandleTypeDef hadc;
 extern I2C_HandleTypeDef hi2c1;
 extern TIM_HandleTypeDef htim1;
 /* USER CODE BEGIN EV */
-extern uint8_t _Inited;
-extern uint8_t usbInitFlag;
+extern uint8_t USB_Inited_Flag;
+extern uint8_t USB_Init_Flag;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -156,17 +156,17 @@ void EXTI4_15_IRQHandler(void)
   {
     LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_8);
     /* USER CODE BEGIN LL_EXTI_LINE_8 */
-    if(!_Inited)
+    if(!USB_Inited_Flag)
     {
     	return;
     }
     if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8)==SET)
     {
-    	usbInitFlag=1;
+    	USB_Init_Flag=1;
     }
     else
     {
-    	usbInitFlag=2;
+    	USB_Init_Flag=2;
     }
     /* USER CODE END LL_EXTI_LINE_8 */
   }
