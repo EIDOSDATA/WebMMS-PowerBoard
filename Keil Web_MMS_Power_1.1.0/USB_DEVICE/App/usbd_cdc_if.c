@@ -23,7 +23,10 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,12 +35,14 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-extern uint8_t PwrSFlag;
-extern float _bresult;
-extern float _cresult;
+extern float voltage_bat;
+extern float voltage_cam;
 char buf[50];
+
 uint8_t Action_Flag[6] =
 { 0, 0, 0, 0, 0, 0 };
+char Action_Flag_S[6];
+
 char Manual[] = "EACH POWER STOPS WHEN YOU PRESS ONE MORE TIME.\r\n\r\n"
 		"Print Manual : M\r\n"
 		"K : View Voltage\r\n"
@@ -151,6 +156,63 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length);
 static int8_t CDC_Receive_FS(uint8_t* pbuf, uint32_t *Len);
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_DECLARATION */
+void Port_ReFresh() __attribute__((always_inline)) // static inline void Port_ReFresh() // void Port_ReFresh() __attribute__((always_inline))
+{
+	// ON : 1, OFF : 07
+	// ON : O, OFF : F, NonConnect : N
+	Action_Flag[0] = (PWR1_GPIO_Port->IDR & PWR1_Pin) ? 0 : 1; // 1
+	Action_Flag[1] = (PWR1_GPIO_Port->IDR & PWR2_Pin) ? 0 : 1; // 2
+	Action_Flag[2] = (PWR1_GPIO_Port->IDR & PWR3_Pin) ? 0 : 1; // 3
+	Action_Flag[3] = (PWR1_GPIO_Port->IDR & PWR4_Pin) ? 0 : 1; // 4
+	Action_Flag[4] = (PWR1_GPIO_Port->IDR & PWR5_Pin) ? 0 : 1; // 5
+	Action_Flag[5] = (PWR1_GPIO_Port->IDR & PWR6_Pin) ? 0 : 1; // 6
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (Action_Flag[i] == 1)
+		{
+			Action_Flag_S[i] = 'O';
+		}
+
+		else if (Action_Flag[i] == 0)
+		{
+			Action_Flag_S[i] = 'F';
+			/*
+			 if(NonConnect)
+			 {
+			 P_Stat_S[i] = 'N';
+			 }
+			 */
+		}
+	}
+}
+
+void ResPonse_PSTAT(int p) __attribute__((always_inline)) //static inline void ResPonse_PSTAT(int p) // void ResPonse_PSTAT(int p) __attribute__((always_inline))
+{
+	Port_ReFresh();
+	switch (p)
+	{
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+		sprintf(buf, "#pstat,%d,%c\r\n", p, Action_Flag_S[p - 1]);
+		break;
+	default:
+		sprintf(buf, "\r\n#pstat,1,%c\r\n"
+				"#pstat,2,%c\r\n"
+				"#pstat,3,%c\r\n"
+				"#pstat,4,%c\r\n"
+				"#pstat,5,%c\r\n"
+				"#pstat,6,%c\r\n\r\n", Action_Flag_S[0], Action_Flag_S[1], Action_Flag_S[2],
+				Action_Flag_S[3], Action_Flag_S[4], Action_Flag_S[5]);
+		break;
+	}
+}
+
+
 
 /* USER CODE END PRIVATE_FUNCTIONS_DECLARATION */
 
@@ -241,12 +303,15 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 		/*                                        4 - Space                            */
 		/* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
 		/*******************************************************************************/
+		// 115200bps, 1stop, no parity, 8bit
+		static uint8_t lineCoding[7] =
+		{ 0x00, 0xC2, 0x01, 0x00, 0x00, 0x00, 0x08 }; // 0001c200 >> 115200 arr[3],arr[2],arr[1],arr[0]
 	case CDC_SET_LINE_CODING:
-
+		memcpy(lineCoding, pbuf, sizeof(lineCoding));
 		break;
 
 	case CDC_GET_LINE_CODING:
-
+		memcpy(pbuf, lineCoding, sizeof(lineCoding));
 		break;
 
 	case CDC_SET_CONTROL_LINE_STATE:
@@ -285,170 +350,200 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
 	USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
 	USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+	Port_ReFresh(); // USB Key INPUT : Data ReFresh	
+	
+	
 	/*--- ON ACTION ---*/
 	if (Buf[0] == 'q' || Buf[0] == 'Q')
 	{
-		if (Action_Flag[0] == 1)
+		if (Action_Flag_S[0] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW1 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[0] == 0)
+		else if (Action_Flag_S[0] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW1 : ON\r\n", 10);
-			Action_Flag[0] = 1;
+		}
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
 	}
 	else if (Buf[0] == 'w' || Buf[0] == 'W')
 	{
-		if (Action_Flag[1] == 1)
+		if (Action_Flag_S[1] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW2 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[1] == 0)
+		else if (Action_Flag_S[1] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW2 : ON\r\n", 10);
-			Action_Flag[1] = 1;
+		}
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
 	}
 	else if (Buf[0] == 'e' || Buf[0] == 'E')
 	{
-		if (Action_Flag[2] == 1)
+		if (Action_Flag_S[2] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW3 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[2] == 0)
+		else if (Action_Flag_S[2] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW3 : ON\r\n", 10);
-			Action_Flag[2] = 1;
 		}
-
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
+		}
 	}
 	else if (Buf[0] == 'r' || Buf[0] == 'R')
 	{
-		if (Action_Flag[3] == 1)
+		if (Action_Flag_S[3] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW4 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[3] == 0)
+		else if (Action_Flag_S[3] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW4 : ON\r\n", 10);
-			Action_Flag[3] = 1;
+		}
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
 	}
 	else if (Buf[0] == 't' || Buf[0] == 'T')
 	{
-		if (Action_Flag[4] == 1)
+		if (Action_Flag_S[4] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW5 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[4] == 0)
+		else if (Action_Flag_S[4] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW5 : ON\r\n", 10);
-			Action_Flag[4] = 1;
+		}
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
 	}
 	else if (Buf[0] == 'y' || Buf[0] == 'Y')
 	{
-		if (Action_Flag[5] == 1)
+		if (Action_Flag_S[5] == 'O')
 		{
-			CDC_Transmit_FS((uint8_t*) "#PW6 Already On\r\n", 17);
+			sprintf(buf, "#Already On\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
-		else if (Action_Flag[5] == 0)
+		else if (Action_Flag_S[5] == 'F')
 		{
+			sprintf(buf, "#Activated\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 			HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, RESET);
-			CDC_Transmit_FS((uint8_t*) "PW6 : ON\r\n", 10);
-			Action_Flag[5] = 1;
+		}
+		else // NON Connect
+		{
+			sprintf(buf, "#No Cable Connected\r\n");
+			CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 		}
 	}
 	/*--- OFF ACTION ---*/
 	if (Buf[0] == 'z' || Buf[0] == 'Z')
 	{
 		HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW1 : OFF\r\n", 11);
-		Action_Flag[0] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW1 : OFF\r\n", 11);		
 	}
 	else if (Buf[0] == 'x' || Buf[0] == 'X')
 	{
 		HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW2 : OFF\r\n", 11);
-		Action_Flag[1] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW2 : OFF\r\n", 11);		
 	}
 	else if (Buf[0] == 'c' || Buf[0] == 'C')
 	{
 		HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW3 : OFF\r\n", 11);
-		Action_Flag[2] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW3 : OFF\r\n", 11);		
 	}
 	else if (Buf[0] == 'v' || Buf[0] == 'V')
 	{
 		HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW4 : OFF\r\n", 11);
-		Action_Flag[3] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW4 : OFF\r\n", 11);		
 	}
 	else if (Buf[0] == 'b' || Buf[0] == 'B')
 	{
 		HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW5 : OFF\r\n", 11);
-		Action_Flag[4] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW5 : OFF\r\n", 11);		
 	}
 	else if (Buf[0] == 'n' || Buf[0] == 'N')
 	{
 		HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, SET);
-		CDC_Transmit_FS((uint8_t*) "PW6 : OFF\r\n", 11);
-		Action_Flag[5] = 0;
+		CDC_Transmit_FS((uint8_t*) "PW6 : OFF\r\n", 11);		
 	}
+	
+	
 	if (Buf[0] == 'a' || Buf[0] == 'A')
 	{
-		Action_Flag[0] == 1 ?
+		Action_Flag_S[0] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, RESET);
-		Action_Flag[1] == 1 ?
+		Action_Flag_S[1] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, RESET);
-		Action_Flag[2] == 1 ?
+		Action_Flag_S[2] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, RESET);
-		Action_Flag[3] == 1 ?
+		Action_Flag_S[3] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, RESET);
-		Action_Flag[4] == 1 ?
+		Action_Flag_S[4] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, RESET);
-		Action_Flag[5] == 1 ?
+		Action_Flag_S[5] == 'O' ?
 				NULL : HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, RESET);
-		//HAL_GPIO_WritePin(GPIOB, 0xFC00, RESET);
-		CDC_Transmit_FS((uint8_t*) "PW ALL : ON\r\n", 13);
-		Action_Flag[0] = 1;
-		Action_Flag[1] = 1;
-		Action_Flag[2] = 1;
-		Action_Flag[3] = 1;
-		Action_Flag[4] = 1;
-		Action_Flag[5] = 1;
+		
+		CDC_Transmit_FS((uint8_t*) "PW ALL : ON\r\n", 13);		
 	}
 	if (Buf[0] == 's' || Buf[0] == 'S')
 	{
 		CDC_Transmit_FS((uint8_t*) "PW ALL : OFF\r\n", 14);
-		HAL_GPIO_WritePin(GPIOB, 0xFC00, SET);
-		Action_Flag[0] = 0;
-		Action_Flag[1] = 0;
-		Action_Flag[2] = 0;
-		Action_Flag[3] = 0;
-		Action_Flag[4] = 0;
-		Action_Flag[5] = 0;
+		HAL_GPIO_WritePin(GPIOB, 0xFC00, SET);		
 	}
+	
 	if (Buf[0] == 'm' || Buf[0] == 'M')
 	{
 		CDC_Transmit_FS((uint8_t*) Manual, strlen(Manual));
 	}
 	if (Buf[0] == 'k' || Buf[0] == 'K')
-	{
-		int btmp = _bresult * 10;
-		int ctmp = _cresult * 10;
-		sprintf(buf, "%d%d.%d ::: %d%d.%d\r\n", btmp / 100, (btmp % 100) / 10,
-				btmp % 10, ctmp / 100, (ctmp % 100) / 10, ctmp % 10);
+	{		
+		sprintf(buf,"#vin,%d.%d\r\n"
+								"#vcam,%d.%d\r\n\r\n",
+		(int) voltage_bat, (int) (voltage_bat * 100) % 100,
+		(int) voltage_cam, (int) (voltage_cam * 100) % 100);
 
 		CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
 	}
+	if (Buf[0] == 'p' || Buf[0] == 'P')
+	{
+		ResPonse_PSTAT(0);
+		CDC_Transmit_FS((uint8_t*) buf, strlen(buf));
+	}
+	
+	
 	return (USBD_OK);
   /* USER CODE END 6 */
 }

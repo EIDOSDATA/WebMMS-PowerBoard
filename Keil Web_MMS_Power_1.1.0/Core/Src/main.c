@@ -78,17 +78,16 @@ const uint8_t SegmentArrInfo[] =
 		0x79,	//E
 		0x71	//F
 		};
-uint8_t SegVar[3];
-uint8_t PwrSFlag = 0;
-bool q = 0, w = 0, e = 0, r = 0, t = 0, y = 0;
-float _bresult;
-float _cresult;
+uint8_t FND_Var[3];
+
+float voltage_bat, voltage_cam;
+		
 char bdata[20];
 char cdata[20];
-uint16_t adcValue[2];
+uint16_t ADC_Value[2];
 
-uint8_t _Inited = 0;
-uint8_t usbInitFlag = 0;
+uint8_t USB_Inited_Flag = 0;
+uint8_t USB_Init_Flag = 0;
 
 /* USER CODE END PV */
 
@@ -113,56 +112,39 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			now = 13;
 		}
 		HAL_GPIO_WritePin(GPIOB, 0x00FF, RESET);
-		HAL_GPIO_WritePin(GPIOB, SegVar[now - 13], SET);
+		HAL_GPIO_WritePin(GPIOB, FND_Var[now - 13], SET);
 		HAL_GPIO_WritePin(GPIOC, (1 << now), RESET);
 	}
 }
 
 void setSegVal(uint16_t val, uint8_t ptDigit)
 {
-	SegVar[0] = SegmentArrInfo[val / 100]; // 100
-	SegVar[1] = SegmentArrInfo[((val % 100)) / 10]; // 10
-	SegVar[2] = SegmentArrInfo[val % 10]; // 1
+	FND_Var[0] = SegmentArrInfo[val / 100]; // 100
+	FND_Var[1] = SegmentArrInfo[((val % 100)) / 10]; // 10
+	FND_Var[2] = SegmentArrInfo[val % 10]; // 1
 
 	for (uint8_t i = 0; i < 3; i++)
 	{
 		if (ptDigit & (1 << i))
 		{
-			SegVar[i] |= 0x80;
+			FND_Var[i] |= 0x80;
 		}
 	}
 }
 
 void ADC_PRINT()
 {
-	HAL_ADC_Start_DMA(&hadc, adcValue, 2); // ADC1 3????????
+	HAL_ADC_Start_DMA(&hadc, ADC_Value, 2);
 	for (int i = 0; i < 2; i++)
-	{ // ADC 3???? ??????????????? DMA??? ?????????
-		HAL_DMA_PollForTransfer(&hdma_adc, HAL_DMA_FULL_TRANSFER, 1000); // ?????? ??? ????????????
+	{
+		HAL_DMA_PollForTransfer(&hdma_adc, HAL_DMA_FULL_TRANSFER, 1000);
 	}
-	HAL_ADC_Stop_DMA(&hadc); // ????? ???
+	HAL_ADC_Stop_DMA(&hadc);
 
-	/*
-	 //Read ADC Data 1 byte
-	 LL_ADC_REG_StartConversion(ADC1);
-	 while (!LL_ADC_IsActiveFlag_EOS(ADC1))
-	 ;
-	 i = LL_ADC_REG_ReadConversionData12(ADC1);
-	 */
 
-	/*
-	 LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_1,12);
-	 LL_DMA_SetPeriphAddress(DMA1,LL_DMA_CHANNEL_1,(uint32_t)(&ADC1->DR));
-	 LL_DMA_SetMemoryAddress(DMA1,LL_DMA_CHANNEL_1,(uint32_t)adcValue[2]);
-	 LL_DMA_EnableIT_TC(DMA1,LL_DMA_CHANNEL_1);
-	 LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_1);
-
-	 LL_ADC_REG_SetDMATransfer(ADC1, LL_ADC_REG_DMA_TRANSFER_UNLIMITED);
-	 */
-
-	_bresult = ((bMAX_VOLTAGE) / (MAX_ADC_VAL)) * ((float) adcValue[0]);
-	_cresult = ((cMAX_VOLTAGE) / (MAX_ADC_VAL)) * ((float) adcValue[1]);
-	if (_cresult >= 5.3)
+	voltage_bat = ((bMAX_VOLTAGE) / (MAX_ADC_VAL)) * ((float) ADC_Value[0]);
+	voltage_cam = ((cMAX_VOLTAGE) / (MAX_ADC_VAL)) * ((float) ADC_Value[1]);
+	if (voltage_cam >= 5.3)
 	{
 		HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, SET);
 	}
@@ -170,7 +152,7 @@ void ADC_PRINT()
 	{
 		HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, RESET);
 	}
-	setSegVal((uint16_t) (_cresult * 100.0), 1 << 0);
+	setSegVal((uint16_t) (voltage_cam * 100.0), 1 << 0);
 	HAL_Delay(1000);
 }
 /* USER CODE END PFP */
@@ -214,14 +196,13 @@ int main(void)
   MX_TIM1_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim1);
-	//LL_ADC_Enable(ADC1);
-	_Inited = 1;
+	HAL_TIM_Base_Start_IT(&htim1);	
+	USB_Inited_Flag = 1;
 	ssd1306_Init();
-	//HAL_Delay(1000);
+	
 	ssd1306_Fill(Black);
 	ssd1306_UpdateScreen();
-	//////////////////
+	
 	ssd1306_SetCursor(18, 0);
 	ssd1306_WriteString("Stryx.INC", Font_11x18, White);
 	ssd1306_SetCursor(0, 20);
@@ -239,10 +220,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		ADC_PRINT();
-		int btmp = _bresult * 100;
-		int ctmp = _cresult * 100;
-		sprintf(bdata, "%d.%d%d", btmp / 100, (btmp % 100) / 10, btmp % 10);
-		sprintf(cdata, "%d.%d%d", ctmp / 100, (ctmp % 100) / 10, ctmp % 10);
+		
+		sprintf(bdata, "%d.%d", (int) voltage_bat, (int) (voltage_bat * 100) % 100);
+		sprintf(cdata, "%d.%d", (int) voltage_cam, (int) (voltage_cam * 100) % 100);		
 
 		ssd1306_SetCursor(60, 20);
 		ssd1306_WriteString(bdata, Font_11x18, White);
@@ -250,17 +230,17 @@ int main(void)
 		ssd1306_WriteString(cdata, Font_11x18, White);
 		ssd1306_UpdateScreen();
 
-		if (usbInitFlag == 1)
+		if (USB_Init_Flag == 1)
 		{
 			MX_USB_DEVICE_Init();
-			usbInitFlag = 0;
+			USB_Init_Flag = 0;
 		}
-		else if (usbInitFlag == 2)
+		else if (USB_Init_Flag == 2)
 		{
 			HAL_PCD_DevDisconnect(&hpcd_USB_FS);
 			USBD_Stop(&hUsbDeviceFS);
 			USBD_DeInit(&hUsbDeviceFS);
-			usbInitFlag = 0;
+			USB_Init_Flag = 0;
 		}
 	}
   /* USER CODE END 3 */

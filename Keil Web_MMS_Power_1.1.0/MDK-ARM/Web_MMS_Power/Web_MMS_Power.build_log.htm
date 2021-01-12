@@ -30,135 +30,144 @@ Rebuild target 'Web_MMS_Power'
 assembling startup_stm32f042x6.s...
 compiling fonts.c...
 compiling stm32f0xx_hal_msp.c...
-compiling stm32f0xx_it.c...
 compiling usb_device.c...
 compiling usbd_desc.c...
+compiling stm32f0xx_it.c...
 compiling ssd1306.c...
-../Core/Src/main.c(109): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../Core/Src/main.c(108): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(GPIOC, (1 << now), SET);
                 ~~~~~~~~~~~~~~~~~                    ^~~
-../Core/Src/main.c(115): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../Core/Src/main.c(114): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(GPIOB, 0x00FF, RESET);
                 ~~~~~~~~~~~~~~~~~                ^~~~~
+../Core/Src/main.c(115): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, FND_Var[now - 13], SET);
+                ~~~~~~~~~~~~~~~~~                           ^~~
 ../Core/Src/main.c(116): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
-                HAL_GPIO_WritePin(GPIOB, SegVar[now - 13], SET);
-                ~~~~~~~~~~~~~~~~~                          ^~~
-../Core/Src/main.c(117): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(GPIOC, (1 << now), RESET);
                 ~~~~~~~~~~~~~~~~~                    ^~~~~
-../Core/Src/main.c(138): warning: incompatible pointer types passing 'uint16_t [2]' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
-        HAL_ADC_Start_DMA(&hadc, adcValue, 2); // ADC1 3????????
-                                 ^~~~~~~~
+../Core/Src/main.c(137): warning: incompatible pointer types passing 'uint16_t [2]' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+        HAL_ADC_Start_DMA(&hadc, ADC_Value, 2);
+                                 ^~~~~~~~~
 ../Drivers/STM32F0xx_HAL_Driver/Inc\stm32f0xx_hal_adc.h(959): note: passing argument to parameter 'pData' here
 HAL_StatusTypeDef       HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length);
                                                                              ^
-../Core/Src/main.c(167): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../Core/Src/main.c(149): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                                       ^~~
-../Core/Src/main.c(171): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../Core/Src/main.c(153): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, RESET);
                 ~~~~~~~~~~~~~~~~~                                       ^~~~~
-../Core/Src/main.c(261): warning: implicit declaration of function 'USBD_Stop' is invalid in C99 [-Wimplicit-function-declaration]
+../Core/Src/main.c(241): warning: implicit declaration of function 'USBD_Stop' is invalid in C99 [-Wimplicit-function-declaration]
                         USBD_Stop(&hUsbDeviceFS);
                         ^
-../Core/Src/main.c(262): warning: implicit declaration of function 'USBD_DeInit' is invalid in C99 [-Wimplicit-function-declaration]
+../Core/Src/main.c(242): warning: implicit declaration of function 'USBD_DeInit' is invalid in C99 [-Wimplicit-function-declaration]
                         USBD_DeInit(&hUsbDeviceFS);
                         ^
 9 warnings generated.
 compiling main.c...
-../USB_DEVICE/App/usbd_cdc_if.c(297): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(159): warning: GCC does not allow 'always_inline' attribute in this position on a function definition [-Wgcc-compat]
+void Port_ReFresh() __attribute__((always_inline)) // static inline void Port_ReFresh() // void Port_ReFresh() __attribute__((always_inline))
+                                   ^
+../USB_DEVICE/App/usbd_cdc_if.c(190): warning: GCC does not allow 'always_inline' attribute in this position on a function definition [-Wgcc-compat]
+void ResPonse_PSTAT(int p) __attribute__((always_inline)) //static inline void ResPonse_PSTAT(int p) // void ResPonse_PSTAT(int p) __attribute__((always_inline))
+                                          ^
+../USB_DEVICE/App/usbd_cdc_if.c(204): warning: 'sprintf' will always overflow; destination buffer has size 50, but format string expands to at least 77 [-Wfortify-source]
+                sprintf(buf, "\r\n#pstat,1,%c\r\n"
+                ^
+../USB_DEVICE/App/usbd_cdc_if.c(368): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(310): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(387): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(323): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(406): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(337): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(425): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(350): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(444): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(363): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(463): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                         HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, RESET);
                         ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(371): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(474): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(377): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(479): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(383): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(484): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(389): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(489): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(395): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(494): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(401): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(499): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                 HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, SET);
                 ~~~~~~~~~~~~~~~~~                           ^~~
-../USB_DEVICE/App/usbd_cdc_if.c(408): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(507): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR1_GPIO_Port, PWR1_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(410): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(509): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR2_GPIO_Port, PWR2_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(412): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(511): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR3_GPIO_Port, PWR3_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(414): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(513): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR4_GPIO_Port, PWR4_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(416): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(515): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR5_GPIO_Port, PWR5_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(418): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+../USB_DEVICE/App/usbd_cdc_if.c(517): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
                                 NULL : HAL_GPIO_WritePin(PWR6_GPIO_Port, PWR6_Pin, RESET);
                                        ~~~~~~~~~~~~~~~~~                           ^~~~~
-../USB_DEVICE/App/usbd_cdc_if.c(431): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
-                HAL_GPIO_WritePin(GPIOB, 0xFC00, SET);
+../USB_DEVICE/App/usbd_cdc_if.c(524): warning: implicit conversion from enumeration type 'FlagStatus' to different enumeration type 'GPIO_PinState' [-Wenum-conversion]
+                HAL_GPIO_WritePin(GPIOB, 0xFC00, SET);          
                 ~~~~~~~~~~~~~~~~~                ^~~
-19 warnings generated.
+22 warnings generated.
 compiling usbd_cdc_if.c...
 compiling stm32f0xx_ll_gpio.c...
-compiling stm32f0xx_hal_pcd_ex.c...
 compiling usbd_conf.c...
+compiling stm32f0xx_hal_pcd_ex.c...
 compiling stm32f0xx_ll_rcc.c...
-compiling stm32f0xx_ll_usb.c...
 compiling stm32f0xx_hal_pcd.c...
+compiling stm32f0xx_ll_usb.c...
 compiling stm32f0xx_ll_utils.c...
 compiling stm32f0xx_ll_exti.c...
-compiling stm32f0xx_hal.c...
-compiling stm32f0xx_hal_rcc_ex.c...
 compiling stm32f0xx_hal_i2c_ex.c...
+compiling stm32f0xx_hal.c...
 compiling stm32f0xx_hal_gpio.c...
+compiling stm32f0xx_hal_rcc_ex.c...
 compiling stm32f0xx_hal_dma.c...
 compiling stm32f0xx_hal_rcc.c...
+compiling stm32f0xx_hal_cortex.c...
 compiling stm32f0xx_hal_pwr.c...
 compiling stm32f0xx_hal_pwr_ex.c...
-compiling stm32f0xx_hal_cortex.c...
-compiling stm32f0xx_hal_exti.c...
 compiling stm32f0xx_hal_flash.c...
+compiling stm32f0xx_hal_exti.c...
 compiling stm32f0xx_hal_flash_ex.c...
 compiling stm32f0xx_hal_adc_ex.c...
 compiling stm32f0xx_hal_adc.c...
-compiling stm32f0xx_hal_i2c.c...
 compiling system_stm32f0xx.c...
-compiling usbd_core.c...
+compiling stm32f0xx_hal_i2c.c...
 compiling stm32f0xx_hal_tim_ex.c...
-compiling usbd_ctlreq.c...
+compiling usbd_core.c...
 compiling usbd_ioreq.c...
+compiling usbd_ctlreq.c...
 compiling usbd_cdc.c...
 compiling stm32f0xx_hal_tim.c...
 linking...
-Program Size: Code=22022 RO-data=3894 RW-data=748 ZI-data=4772  
+Program Size: Code=22462 RO-data=3882 RW-data=756 ZI-data=4772  
 FromELF: creating hex file...
-"Web_MMS_Power\Web_MMS_Power.axf" - 0 Error(s), 28 Warning(s).
+"Web_MMS_Power\Web_MMS_Power.axf" - 0 Error(s), 31 Warning(s).
 
 <h2>Software Packages used:</h2>
 
