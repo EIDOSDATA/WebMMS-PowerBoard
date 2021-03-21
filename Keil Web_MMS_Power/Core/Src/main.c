@@ -157,7 +157,7 @@ void ADC_PRINT()
 		HAL_GPIO_WritePin(S_CAP_CTRL_GPIO_Port, S_CAP_CTRL_Pin, GPIO_PIN_RESET);
 	}
 	setSegVal((uint16_t) (voltage_cam * 100.0), 1 << 0);
-	HAL_Delay(1000);
+	HAL_Delay(50);
 }
 /* USER CODE END PFP */
 
